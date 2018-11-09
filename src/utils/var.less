@@ -1,0 +1,13 @@
+.font-dpr(@size) {
+  font-size: @size;
+  [data-dpr="2"] & {
+    font-size: @size * 2;
+  }
+  [data-dpr="3"] & {
+    font-size: @size * 3;
+  }
+}
+
+.px2rem(@px, @base-font-size: 32) {
+  @rem: (@px/@base-font-size)*1rem;
+}

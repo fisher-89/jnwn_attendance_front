@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import QueueAnim from 'rc-queue-anim';
+import { connect } from 'dva';
+import './App.less';
+
+@connect()
 
 class App extends Component {
   render() {
+    const { children, pathname } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <QueueAnim
+        type={['left', 'right']}  
+      >
+        <div  className="container" key={pathname}>
+          {children}
+        </div>
+      </QueueAnim>
     );
   }
 }
-
-export default App;
+export default App
