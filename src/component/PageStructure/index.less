@@ -1,3 +1,6 @@
+
+@import '../../utils/var.less';
+
 .page_container {
   height: 100%;
   display: flex;
@@ -7,7 +10,9 @@
 .page_header,
 .page_footer {
   flex-shrink: 0;
-  flex-grow: 0
+  flex-grow: 0;
+  .font-dpr(14px);
+  height: 32px;
 }
 .page_content{
   flex-grow: 1;

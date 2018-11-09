@@ -51,7 +51,8 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
-const cssRegex = /\(.css|less)$/;
+const cssRegex = /\.(css|less)$/;
+
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
@@ -69,9 +70,6 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     {
       loader: require.resolve('css-loader'),
       options: cssOptions,
-    },
-    {
-      loader: require.resolve('less-loader') // compiles Less to CSS
     },
     {
       // Options for PostCSS as we reference these options twice
@@ -93,6 +91,9 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
         ],
         sourceMap: shouldUseSourceMap,
       },
+    },
+    {
+      loader: require.resolve('less-loader') // compiles Less to CSS
     },
   ];
   if (preProcessor) {
