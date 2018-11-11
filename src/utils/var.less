@@ -9,19 +9,21 @@
 }
 
 @theme-color: rgb(253, 208, 0);
-@active-theme-color:rgb(232,167,18);
+@active-theme-color: rgb(232, 167, 18);
 @interspersed-color: rgb(27, 182, 182);
-@bg-clor: rgb(253, 253, 253);
+@bg-color: rgb(253, 253, 253);
 @text-main-color: rgb(53, 48, 49);
 @text-assist-color: rgb(127, 123, 125);
 @text-assist-sub-color: rgb(187, 185, 186);
+@filter-bg-color:rgb(243,243,242);
 @warning-color: rgb(235, 70, 90);
-@active-warning-color:rgb(199,39,59);
+@active-warning-color: rgb(199, 39, 59);
 @hint-clor: rgb(245, 166, 35);
 @vertical-margin6: 6px;
 @vertical-margin9: 9px;
 @vertical-margin15: 15px;
 @vertical-margin21: 21px;
+@card-padding: 15px;
 @level-side5: 5px;
 @level-side8: 8px;
 @level-side15: 15px;
@@ -36,14 +38,14 @@
 @btn-l-fontsize: 16px;
 @btn-xs-sidepadding: 10px;
 @btn-s-sidepadding: 12px;
-@btn-m-sidepadding: 16px;
+@btn-m-sidepadding: 18px;
 @btn-l-sidepadding: 22px;
 .btn-stroke-style(@color, @height, @padding) {
   padding: 0 @padding;
   height: @height;
   line-height: @height;
   color: @color;
-  border-radius: 50%;
+  border-radius: @height/2;
   text-align: center;
   border: 1px solid @color;
 }
