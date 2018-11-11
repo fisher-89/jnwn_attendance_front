@@ -66,7 +66,7 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
           require('postcss-pxtorem')({
             'rootValue': 37.5,
             'unitPrecision': 7,
-            "propList": ["width","height","line-height"],
+            "propList": ["width", "height", "line-height", "padding"],
             'selectorBlackList': ['ignore', 'html-topbar'],
             'replace': true,
             'mediaQuery': false,

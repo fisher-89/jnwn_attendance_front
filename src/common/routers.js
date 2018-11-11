@@ -13,9 +13,9 @@ const menuGlobal = [
     pid: '0',
     name: 'bbb页',
     icon: 'user',
-    path: '/aaa/bbb',
+    path: '/test',
     models: [], //models可多个
-    component: () => import('../routes/B'),
+    component: () => import('../routes/test'),
   },
 ];
 export default menuGlobal

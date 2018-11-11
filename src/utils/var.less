@@ -8,6 +8,103 @@
   }
 }
 
-.px2rem(@px, @base-font-size: 32) {
-  @rem: (@px/@base-font-size)*1rem;
+@theme-color: rgb(253, 208, 0);
+@active-theme-color:rgb(232,167,18);
+@interspersed-color: rgb(27, 182, 182);
+@bg-clor: rgb(253, 253, 253);
+@text-main-color: rgb(53, 48, 49);
+@text-assist-color: rgb(127, 123, 125);
+@text-assist-sub-color: rgb(187, 185, 186);
+@warning-color: rgb(235, 70, 90);
+@active-warning-color:rgb(199,39,59);
+@hint-clor: rgb(245, 166, 35);
+@vertical-margin6: 6px;
+@vertical-margin9: 9px;
+@vertical-margin15: 15px;
+@vertical-margin21: 21px;
+@level-side5: 5px;
+@level-side8: 8px;
+@level-side15: 15px;
+@diabled-color: rgb(187, 185, 186);
+@btn-xs-height: 20px;
+@btn-s-height: 24px;
+@btn-m-height: 36px;
+@btn-l-height: 44px;
+@btn-xs-fontsize: 12px;
+@btn-s-fontsize: 12px;
+@btn-m-fontsize: 18px;
+@btn-l-fontsize: 16px;
+@btn-xs-sidepadding: 10px;
+@btn-s-sidepadding: 12px;
+@btn-m-sidepadding: 16px;
+@btn-l-sidepadding: 22px;
+.btn-stroke-style(@color, @height, @padding) {
+  padding: 0 @padding;
+  height: @height;
+  line-height: @height;
+  color: @color;
+  border-radius: 50%;
+  text-align: center;
+  border: 1px solid @color;
+}
+
+.btn-fill-style(@color, @fill-color, @height, @padding) {
+  padding: 0 @padding;
+  height: @height;
+  line-height: @height;
+  color: @color;
+  border-radius: @height/2;
+  text-align: center;
+  background: @fill-color;
+}
+
+.btn-xs {
+  display: inline-block;
+  font-size: @btn-xs-fontsize;
+  height: @btn-xs-height ;
+  line-height: @btn-xs-height;
+  padding: 0 @btn-xs-sidepadding;
+  border-radius: @btn-xs-sidepadding;
+  text-align: center;
+}
+
+.btn-s {
+  display: inline-block;
+  font-size: @btn-s-fontsize;
+  height: @btn-s-height ;
+  line-height: @btn-s-height;
+  padding: 0 @btn-s-sidepadding;
+  border-radius: @btn-s-sidepadding;
+  text-align: center;
+}
+
+.btn-m {
+  display: inline-block;
+  font-size: @btn-m-fontsize;
+  height: @btn-m-height ;
+  line-height: @btn-m-height;
+  padding: 0 @btn-m-sidepadding;
+  border-radius: @btn-m-sidepadding;
+  text-align: center;
+}
+
+.btn-l {
+  display: inline-block;
+  font-size: @btn-l-fontsize;
+  height: @btn-l-height ;
+  line-height: @btn-l-height;
+  padding: 0 @btn-l-sidepadding;
+  border-radius: @btn-l-sidepadding;
+  text-align: center;
+}
+
+.btn-fill(@color, @fill-color) {
+  color: @color;
+  background: @fill-color;
+  border: none;
+}
+
+.btn-stroke(@color) {
+  border: 1px solid @color;
+  color: @color;
 }

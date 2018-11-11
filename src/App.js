@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import QueueAnim from 'rc-queue-anim';
-import { connect } from 'dva';
 import './App.less';
-
-@connect()
 
 class App extends Component {
   render() {

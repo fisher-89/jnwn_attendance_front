@@ -1,0 +1,58 @@
+@import '../../utils/var.less';
+.xs_btn {
+  .btn-xs();
+}
+
+.s_btn {
+  .btn-s();
+}
+
+.m_btn {
+  .btn-m();
+}
+
+.l_btn {
+  .btn-l();
+}
+
+.btn_fill_primary_style {
+  .btn-fill(#fff, @theme-color);
+  &:active {
+    .btn-fill(#fff, @active-theme-color);
+  }
+}
+
+.btn_fill_warning_style {
+  .btn-fill(#fff, @warning-color);
+  &:active {
+    .btn-fill(#fff, @active-warning-color);
+  }
+}
+
+.btn_fill_default_style {
+  .btn-fill(#fff, @text-assist-color );
+  &:active {
+    .btn-fill(#fff, @text-assist-sub-color);
+  }
+}
+
+.btn_stroke_primary_style {
+  .btn-stroke( @theme-color);
+  &:active {
+    .btn-stroke( @active-theme-color);
+  }
+}
+
+.btn_stroke_warning_style {
+  .btn-stroke(@warning-color);
+  &:active {
+    .btn-stroke( @active-warning-color);
+  }
+}
+
+.btn_stroke_default_style {
+  .btn-stroke( @text-assist-color );
+  &:active {
+    .btn-stroke( @text-assist-sub-color);
+  }
+}
