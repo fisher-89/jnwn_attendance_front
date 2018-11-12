@@ -1,0 +1,54 @@
+@import '../../utils/var';
+.person_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  margin-bottom: 23px;
+}
+
+.user_info {
+  width: 100%;
+  margin-top: @vertical-margin6;
+  text-align: center;
+  .fontStyle(@text-main-color, 12px);
+  line-height: 20px;
+  .textLineOverFlow()
+}
+
+.person_icon {
+  width: 48px;
+  height:48px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  text-align: center;
+  line-height: 96/75rem;
+  background: @theme-color;
+  color: @text-main-color;
+  box-sizing: border-box;
+  .name {
+    position: relative;
+    .font-dpr(12px);
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    box-sizing: border-box;
+    img {
+      width: 100%;
+    }
+    span {
+      position: absolute;
+      top:-7px;
+      right: -7px;
+      width: 44px;
+      height: 44px;
+      .bg-image-method(22px, 22px, '/icons/cancel.png', 12px);
+    }
+  }
+  &.spe {
+    background: #fff;
+    border: 1px dotted rgb(136, 136, 136);
+  }
+}

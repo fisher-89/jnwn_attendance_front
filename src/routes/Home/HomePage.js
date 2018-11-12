@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import { WhiteSpace } from 'antd-mobile'
 import { PageContainer, PageHeader, PageFooter, PageContent } from '../../component/PageStructure'
 import {
-  StatusLabel, ShopLevel,Card, Btn, CheckboxBtn, CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
-  TextInput
-
+  StatusLabel, ShopLevel, Card, Btn, CheckboxBtn, CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
+  TextInput, PersonAdd, PersonIcon,
 } from '../../component';
 import '../index.less'
 class PageIndex extends Component {
@@ -35,7 +34,20 @@ class PageIndex extends Component {
         </PageHeader>
         <PageContent>
           <CardTitle title="cardtitle" extra={<p >哈哈</p>} />
-          <Card extra={<ShopLevel/>}>
+
+          <Card>
+            <div style={{ margin: '0 0 -21px 0' }}>
+              <PersonIcon 
+              value={{ name: '魏颖' }} 
+              nameKey="name" 
+              handleDelClick={()=>console.log('del')}
+              />
+              <PersonIcon value={{ name: '魏颖' }} nameKey="name" />
+            </div>
+          </Card>
+          <WhiteSpace size="lg" />
+
+          <Card extra={<ShopLevel />}>
             <FileUpLoad
               files={files}
               title="上传图片"
@@ -44,6 +56,7 @@ class PageIndex extends Component {
             />
           </Card>
           <WhiteSpace size="lg" />
+
           <Card>
             <BlockTextArea
               value={inputvalue}
@@ -67,13 +80,13 @@ class PageIndex extends Component {
             extra={<StatusLabel fillColor='red'>已完成</StatusLabel>}>
             <TextInput
               value={inlinetext}
-              style={{ paddingTop: 0,  }}
+              style={{ paddingTop: 0, }}
               title="单行文本"
               onChange={(value) => this.handleOnChange('inlinetext', value)}
             />
             <TextInput
               value={inlinetext}
-              
+
               title="单行文本"
               onChange={(value) => this.handleOnChange('inlinetext', value)}
             />
