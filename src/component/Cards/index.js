@@ -3,9 +3,14 @@ import React, { Component } from 'react';
 import './index.less'
 class Card extends Component {
   render() {
-    const { children} = this.props;
+    const { children, extra, style } = this.props;
     return (
-      <div className="card">
+      <div className="card" style={style}>
+        {extra && (
+          <div className="extra">
+            {extra}
+          </div>)
+        }
         {children}
       </div>
     )
@@ -13,7 +18,7 @@ class Card extends Component {
 }
 
 Card.defaultProps = {
-  size: 'l',
+  extra: null
 }
 
 export default Card

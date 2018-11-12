@@ -1,0 +1,37 @@
+@import '../../utils/var.less';
+.text_area {
+  :global {
+    .am-list-item {
+      padding: 0;
+      margin: 0;
+    }
+    .am-textarea-control textarea {
+      .fontStyle(@text-assist-color, 14px);
+      line-height: 22px;
+    }
+    .am-textarea-control {
+      padding: 0;
+    }
+    .am-list-item {
+      min-height: 22px;
+      align-items: start;
+    }
+    .am-textarea-clear {
+      .bg-image-method(22px, 22px, '/icons/cancel.png', 12px);
+      margin-top: 0;
+    }
+    .am-textarea-label {
+      width: 60px;
+      margin-right: 21px;
+      line-height: 22px;
+      min-height: 22px;
+      .fontStyle(@text-main-color, 14px)
+    }
+  }
+  .title {
+    margin: 0 0 15px 0;
+    height: 22px;
+    line-height: 22px;
+    .fontStyle(@text-main-color, 14px)
+  }
+}

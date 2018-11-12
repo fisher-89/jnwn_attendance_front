@@ -15,7 +15,7 @@
 @text-main-color: rgb(53, 48, 49);
 @text-assist-color: rgb(127, 123, 125);
 @text-assist-sub-color: rgb(187, 185, 186);
-@filter-bg-color:rgb(243,243,242);
+@filter-bg-color: rgb(243, 243, 242);
 @warning-color: rgb(235, 70, 90);
 @active-warning-color: rgb(199, 39, 59);
 @hint-clor: rgb(245, 166, 35);
@@ -27,8 +27,7 @@
 @level-side5: 5px;
 @level-side8: 8px;
 @level-side15: 15px;
-@both-side-distance:12px;
-
+@both-side-distance: 12px;
 @diabled-color: rgb(187, 185, 186);
 @btn-xs-height: 20px;
 @btn-s-height: 24px;
@@ -113,7 +112,14 @@
   color: @color;
 }
 
-.fontStyle(@color,@size) {
-  color:@color;
+.fontStyle(@color, @size) {
+  color: @color;
   .font-dpr(@size);
+}
+
+.bg-image-method(@w, @h, @url, @bg-size) {
+  width: @w;
+  height: @h;
+  background: url(@url) no-repeat center;
+  background-size: @bg-size;
 }

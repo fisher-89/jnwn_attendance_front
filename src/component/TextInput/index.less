@@ -1,0 +1,30 @@
+@import '../../utils/var.less';
+.input {
+  padding: 14px 0;
+  border-bottom: 1px solid @text-assist-sub-color;
+  :global {
+    .am-list-item.am-input-item {
+      height: 22px;
+      min-height: 22px;
+      padding-left: 0;
+    }
+    .am-list-item .am-list-line {
+      padding-right: 0;
+    }
+    .am-list-item .am-input-label {
+      width: 60px;
+      margin-right: 21px;
+      line-height: 22px;
+      min-height: 22px;
+      .fontStyle(@text-main-color, 14px)
+    }
+    .am-list-item .am-input-control input {
+      .fontStyle(@text-assist-color, 14px);
+      line-height: 22px;
+    }
+    .am-list-item .am-input-clear {
+      .bg-image-method(22px, 22px, '/icons/cancel.png', 12px);
+      margin-top: 0;
+    }
+  }
+}
