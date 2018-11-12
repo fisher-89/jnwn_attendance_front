@@ -1,10 +1,11 @@
 import CircularJSON from 'circular-json';
 import { isLogin, isAuthed } from '../utils/util'
 import * as common from '../services/common'
+import { FileUpLoad } from '../component';
 export default {
   namespace: 'app',
   state: {
-    UserInfo: {}
+    UserInfo: {},
   },
 
   subscriptions: {
@@ -37,6 +38,14 @@ export default {
         })
       }
     },
+    * fileUpload({ payload }, { call }) {
+    const response = yield call(common.fileUpload, payload.data);
+    if (response && !response.error) {
+      payload.cb(response.data);
+    } else {
+      // Toast.info(data.message, 1.5);
+    }
+  },
   },
 
   reducers: {

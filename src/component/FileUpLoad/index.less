@@ -1,0 +1,34 @@
+@import '../../utils/var.less';
+
+.image_picker {
+  :global {
+    .am-image-picker-list .am-image-picker-item .am-image-picker-item-remove {
+      background-repeat: no-repeat;
+      background-size:12px auto;
+      background-position: center;
+      width: 22px;
+      height: 22px;
+      top:-11px;
+      right: -11px;;
+    }
+    .am-image-picker-list .am-flexbox .am-flexbox-item{
+      margin: 11px 11px 0px 0;
+    }
+    .am-flexbox {
+      overflow: visible;
+    }
+    .am-image-picker-list {
+      padding: 0
+    }
+    .am-image-picker-list{
+      margin-bottom: 0;
+    }
+  }
+}
+
+.title{
+  margin:0 0 4px 0;
+  height: 22px;
+  line-height: 22px;
+  .fontStyle(@text-main-color,14px)
+}

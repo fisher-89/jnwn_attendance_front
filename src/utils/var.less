@@ -27,6 +27,8 @@
 @level-side5: 5px;
 @level-side8: 8px;
 @level-side15: 15px;
+@both-side-distance:12px;
+
 @diabled-color: rgb(187, 185, 186);
 @btn-xs-height: 20px;
 @btn-s-height: 24px;
@@ -109,4 +111,9 @@
 .btn-stroke(@color) {
   border: 1px solid @color;
   color: @color;
+}
+
+.fontStyle(@color,@size) {
+  color:@color;
+  .font-dpr(@size);
 }
