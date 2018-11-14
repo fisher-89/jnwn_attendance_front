@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Toast, InputItem } from 'antd-mobile';
-import style from './index.less';
+import './index.less';
 
 class TextInput extends React.Component {
   constructor(props) {

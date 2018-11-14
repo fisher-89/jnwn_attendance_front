@@ -7,8 +7,12 @@ import { BlockTextArea, InlineTextArea } from './TextArea'
 import TextInput from './TextInput'
 import { ShopLevel, StatusLabel } from './ListLabel'
 import { PersonIcon, PersonAdd } from './PersonIcon/index'
+import FooterNav from './FooterNav'
+import GridNav from './GridNav'
+import PageModal from './PageModal/index.js'
 export {
   Card, Btn, CheckboxBtn,
   CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
-  TextInput, ShopLevel, StatusLabel, PersonIcon, PersonAdd
+  TextInput, ShopLevel, StatusLabel, PersonIcon, PersonAdd,
+  FooterNav,GridNav,PageModal
 }

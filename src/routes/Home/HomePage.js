@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react';
-import { WhiteSpace } from 'antd-mobile'
+import { WhiteSpace, Button } from 'antd-mobile'
 import { PageContainer, PageHeader, PageFooter, PageContent } from '../../component/PageStructure'
 import {
   StatusLabel, ShopLevel, Card, Btn, CheckboxBtn, CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
-  TextInput, PersonAdd, PersonIcon,
+  TextInput, PersonAdd, PersonIcon, FooterNav, GridNav, PageModal
 } from '../../component';
 import '../index.less'
 class PageIndex extends Component {
@@ -14,16 +14,24 @@ class PageIndex extends Component {
     inlinetext: '',
     inputvalue: ''
   }
+
+  open = () => {
+    PageModal.open({
+      title: '排班详情',
+      alertTip: "这是一个测试弹框",
+      content: <p>内容</p>,
+      closeAlert: function () {
+        console.log("关闭了...");
+      }
+    });
+  }
+
   handleOnChange = (key, value) => {
     this.setState({
       [key]: value
     })
   }
-  textAareChange = () => {
-    this.setState({
 
-    })
-  }
 
   render() {
     const { files, inlinetext, inputvalue } = this.state
@@ -33,16 +41,24 @@ class PageIndex extends Component {
           shouye
         </PageHeader>
         <PageContent>
+          <Button onClick={this.open} type="paimary">点击modal</Button>
           <CardTitle title="cardtitle" extra={<p >哈哈</p>} />
-
+          <Card style={{ padding: 0 }} >
+            <GridNav />
+          </Card>
+          <WhiteSpace size="lg" />
           <Card>
             <div style={{ margin: '0 0 -21px 0' }}>
-              <PersonIcon 
-              value={{ name: '魏颖' }} 
-              nameKey="name" 
-              handleDelClick={()=>console.log('del')}
+              <PersonIcon
+                header={<div className="status">tongg</div>}
+                value={{ name: '魏颖' }}
+                nameKey="name"
+                handleDelClick={() => console.log('del')}
               />
-              <PersonIcon value={{ name: '魏颖' }} nameKey="name" />
+              <PersonIcon
+                value={{ name: '魏颖' }}
+                borderStyle={{ style: { borderColor: 'rgb(27, 182, 182)' } }}
+                nameKey="name" />
             </div>
           </Card>
           <WhiteSpace size="lg" />
@@ -122,9 +138,11 @@ class PageIndex extends Component {
               <Btn size="l" >按钮</Btn>
             </div>
           </Card>
+          <WhiteSpace size="lg" />
+
         </PageContent>
         <PageFooter>
-          尾
+          <FooterNav history={this.props.history} />
         </PageFooter>
       </PageContainer>
     );

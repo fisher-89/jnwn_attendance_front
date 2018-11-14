@@ -5,6 +5,7 @@ class PersonIcon extends React.Component {
   // type标志有无删除
   render() {
     const {
+      header,
       showNum = 2,
       handleClick,
       handleDelClick,
@@ -12,6 +13,7 @@ class PersonIcon extends React.Component {
       itemStyle = {},
       value = {},
       nameKey,
+      borderStyle
     } = this.props;
     const name = value[nameKey] ? value[nameKey] : '';
     const newName = name.slice(name.length - (name.length < showNum ? name.length : showNum));
@@ -21,8 +23,9 @@ class PersonIcon extends React.Component {
         style={itemStyle}
         onClick={handleClick ? () => handleClick(value) : null}
       >
-        <div className="person_icon">
-          <div className="name">
+        {header}
+        <div className="person_icon" style={borderStyle.style}>
+          <div className="name" >
             {newName}
             {handleDelClick ? <span onClick={e => handleDelClick(e, value)} /> : null}
           </div>
@@ -31,6 +34,11 @@ class PersonIcon extends React.Component {
 
       </div>
     );
+  }
+}
+PersonIcon.defaultProps = {
+  borderStyle: {
+    border:'none'
   }
 }
 export default PersonIcon;

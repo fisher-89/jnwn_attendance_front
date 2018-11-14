@@ -1,0 +1,21 @@
+@import '../../utils/var.less';
+.grid {
+  border-radius: @card-radius;
+  :global {
+    .am-grid.am-grid-square {
+      .am-flexbox.am-flexbox-align-stretch:first-child,
+      .am-flexbox.am-flexbox-align-stretch:last-child {
+        border-radius: @card-radius;
+      }
+    }
+    .am-grid.am-grid-square .am-grid-item .am-grid-item-inner-content .am-grid-icon{
+      width: 48px !important;
+      height: 48px;
+    }
+    .am-grid .am-flexbox .am-flexbox-item .am-grid-item-content .am-grid-item-inner-content .am-grid-text{
+      height: 24px;
+      line-height: 24px;
+      margin-top: 2px;
+    }
+  }
+}
