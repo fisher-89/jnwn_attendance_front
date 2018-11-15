@@ -17,6 +17,15 @@ const menuGlobal = [
     models: [], //models可多个
     component: () => import('../routes/test'),
   },
+  {
+    id: 'test',
+    pid: '0',
+    name: '测试日历',
+    icon: 'user',
+    path: '/testcalendar',
+    models: [], //models可多个
+    component: () => import('../routes/TestCalendar/index.js'),
+  },
 ];
 export default menuGlobal
 export const aouthPath = [
