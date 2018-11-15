@@ -1,14 +1,17 @@
 
 import React, { Component } from 'react';
 import { Grid } from 'antd-mobile'
+import { Card } from '../index'
 import './index.less'
 class GridNav extends Component {
   render() {
     const { style, data } = this.props;
     return (
-      <div style={style} className="grid">
-        <Grid data={data} hasLine={false} />
-      </div>
+      <Card style={{padding:0}}>
+        <div style={{  ...style }} className="grid" >
+          <Grid data={data} hasLine={false} />
+        </div>
+      </Card>
     )
   }
 }

@@ -4,7 +4,7 @@ import { WhiteSpace, Button } from 'antd-mobile'
 import { PageContainer, PageHeader, PageFooter, PageContent } from '../../component/PageStructure'
 import {
   StatusLabel, ShopLevel, Card, Btn, CheckboxBtn, CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
-  TextInput, PersonAdd, PersonIcon, FooterNav, GridNav, PageModal
+  TextInput, PersonAdd, PersonIcon, FooterNav, GridNav, PageModal, ShopInfo
 } from '../../component';
 import '../index.less'
 class PageIndex extends Component {
@@ -41,11 +41,12 @@ class PageIndex extends Component {
           shouye
         </PageHeader>
         <PageContent>
+          <ShopInfo />
+          <WhiteSpace size="lg" />
+
           <Button onClick={this.open} type="paimary">点击modal</Button>
           <CardTitle title="cardtitle" extra={<p >哈哈</p>} />
-          <Card style={{ padding: 0 }} >
             <GridNav />
-          </Card>
           <WhiteSpace size="lg" />
           <Card>
             <div style={{ margin: '0 0 -21px 0' }}>

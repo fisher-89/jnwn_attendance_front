@@ -13,14 +13,14 @@
 @interspersed-color: rgb(27, 182, 182);
 @bg-color: rgb(253, 253, 253);
 @text-main-color: rgb(53, 48, 49);
-@modal-bg-color:rgba(53,48,49,0.4);
+@modal-bg-color: rgba(53, 48, 49, 0.4);
 @text-assist-color: rgb(127, 123, 125);
 @text-assist-sub-color: rgb(187, 185, 186);
 @filter-bg-color: rgb(243, 243, 242);
 @warning-color: rgb(235, 70, 90);
 @active-warning-color: rgb(199, 39, 59);
 @hint-clor: rgb(245, 166, 35);
-@card-radius:8px;
+@card-radius: 8px;
 @vertical-margin6: 6px;
 @vertical-margin9: 9px;
 @vertical-margin15: 15px;
@@ -120,6 +120,11 @@
   width: @w;
   height: @h;
   background: url(@url) no-repeat center;
+  background-size: @bg-size;
+}
+
+.bg-image-layout( @url, @bg-size, @position-x, @position-y) {
+  background: url(@url) no-repeat @position-x @position-y;
   background-size: @bg-size;
 }
 

@@ -10,9 +10,10 @@ import { PersonIcon, PersonAdd } from './PersonIcon/index'
 import FooterNav from './FooterNav'
 import GridNav from './GridNav'
 import PageModal from './PageModal/index.js'
+import ShopInfo from './ShopInfo'
 export {
   Card, Btn, CheckboxBtn,
   CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
   TextInput, ShopLevel, StatusLabel, PersonIcon, PersonAdd,
-  FooterNav,GridNav,PageModal
+  FooterNav,GridNav,PageModal,ShopInfo
 }
