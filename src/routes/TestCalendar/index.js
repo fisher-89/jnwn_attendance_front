@@ -65,7 +65,8 @@ class MobileCalendar extends Component {
   }
 
   componentDidMount() {
-    const el = document.getElementById('calendar');
+
+      const el = document.getElementById('calendar');
     if (el) {
       this.customBiz.init(this.renderDayItem);
     }
@@ -73,21 +74,20 @@ class MobileCalendar extends Component {
 
   renderDayItem = (value, curr) => {
     let template = '';
+    const { isforbid, date, tip, day } = value;
     if (value.date === curr) {
       //今天
       if (value.isSelected) {
-        template = '<div class="em-calendar-item em-calendar-active  isforbid{{isforbid}}" date="{{date}}"><span class="day">{{day}}</span><span class="dot dot-type1"></span></div>';
+        template = `<div class='em-calendar-item em-calendar-active  isforbid${isforbid}' date=${date}><span class="day">${day}</span><span class="dot dot-type1"></span></div>`;
       } else {
-        template = '<div class="em-calendar-item em-calendar-active  isforbid{{isforbid}}" date="{{date}}"><span class="day">{{day}}</span></div>';
+        template = `<div class='em-calendar-item em-calendar-active  isforbid${isforbid}' date=${date}><span class="day">${day}</span></div>`;
       }
     } else {
       if (value.isSelected) {
         // 个性化和业务贴近
-        template = '<div>"{{date}}"</div>';
+        template = `<div class='em-calendar-item em-calendar-active  isforbid${isforbid} tip${tip}' date=${date}><span class="day">${day}</span><span class="dot dot-type1"></span></div>`;
       } else {
-        const style = 'color:red';
-        const test = 1
-        template = `<div class='em-calendar-item  isforbid tip{{tip}}' date={{date}}><span class="day" test=${test} style=${style}>{{day}}</span></div>`;
+        template = `<div class='em-calendar-item  isforbid${isforbid} tip${tip}' date=${date}><span class="day"  >${day}</span></div>`;
       }
     }
     return template

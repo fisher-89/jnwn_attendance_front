@@ -555,7 +555,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     for (var i = 0; i < outputs.length; i++) {
                         html += Mustache.render(templ, outputs[i]);
                     }
-                    console.log(document.querySelector(".swiper-wrapper"))
                     document.querySelector(".swiper-wrapper").innerHTML = html;
                     // 初始化swiper监听
                     self._addEvent();
@@ -1000,7 +999,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
                     dayCount: self.dayCount
                 });
-                
+
                 /**
                  * @description 后加
                  */
