@@ -1,0 +1,100 @@
+@import '../../../utils/var.less';
+/*全局格式化样式*/
+
+body,
+.mui-content {
+	background-color: #F5F5F5;
+}
+
+
+/*日历*/
+
+.em-calendar {
+	border-bottom: 1px solid #e0e0e0;
+}
+
+
+/*左右切换*/
+
+// .em-journal-title {
+// 	width: 100%;
+// 	display: block;
+// 	height: 50px;
+// 	line-height: 50px;
+// 	background-color: #3C80E6;
+// }
+
+.em-per-block {
+	float: left;
+	width: 33%;
+	color: #fff;
+	font-size: 18px;
+}
+
+.em-per-block.pre {
+	text-align: left;
+	font-size: 15px;
+}
+
+.em-per-block.next:active,
+.em-per-block.pre:active {
+	background-color: #3a79d8;
+	border-radius: 15px;
+	font-weight: 800;
+}
+
+.em-per-block.mid {
+	text-align: center;
+	font-size: 18px;
+}
+
+.em-per-block.next {
+	text-align: right;
+	font-size: 15px;
+}
+
+.backToday {
+	background: #3c80e6;
+	color: #fff;
+	height: 44px;
+	line-height: 44px;
+	text-align: center;
+}
+#calendar {
+	padding: 0 8px;
+}
+
+.mui-content {
+	box-shadow: 0 0 @card-radius rgba(0, 0, 0, 0.1);
+	background: rgb(255,255,255);
+}
+
+.em-journal-title {
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+	padding: 0 113px;
+	border-bottom: 1px solid @text-assist-sub-color;
+  .year {
+    position: absolute;
+    left: 15px;
+    top: 24px;
+    margin-top: -12px;
+    height: 24px;
+    line-height: 24px;
+    .fontStyle(@text-main-color, 14px)
+  }
+}
+
+.current-month {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .fontStyle(@text-main-color, 16px);
+  span.pre {
+    .bg-image-method(16px, 16px, '/shopIcon/A.png', 16px)
+  }
+  span.next {
+    .bg-image-method(16px, 16px, '/shopIcon/B1.png', 16px)
+  }
+}

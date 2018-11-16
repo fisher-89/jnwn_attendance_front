@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 // import customBiz from './js/calendar_showcase.js'
 import Calendar from './libs/calendar_base.js'
-
+import { monthTransform } from './libs/datas'
 import './css/mui.min.css'
 import './libs/swiper.min.css'
-import './libs/calendar_base.css'
-import './css/showcase.css'
+import './libs/calendar_base.less'
+import './css/showcase.less'
 class MobileCalendar extends Component {
   constructor(props) {
     super(props)
@@ -38,35 +38,36 @@ class MobileCalendar extends Component {
           // 点击日期事件
           onItemClick: function (item) {
 
-            var defaultDate = item.date;
             // 设置标题
-            setTitle(defaultDate);
+            setTitle(item);
           },
           // 滑动回调
           swipeCallback: function (item) {
             var defaultDate = item.date;
             // 设置标题
-            setTitle(defaultDate);
+            setTitle(item);
             // 动态新增点击样式
             calendar.addActiveStyleFordate(defaultDate);
-
           },
           // 调试
           isDebug: false
         });
         // 设置标题
-        var titleNode = document.querySelector('.mid span');
+        var titleNode = document.querySelector('.current-month span.mid');
+        var yearNode = document.querySelector('.em-journal-title .year');
 
-        function setTitle(date) {
-          titleNode.innerText = date;
+        function setTitle(item) {
+          const { month, year } = item
+          titleNode.innerText = monthTransform(month) + "月";
+          yearNode.innerText = year;
+
         }
       }
     }
   }
 
   componentDidMount() {
-
-      const el = document.getElementById('calendar');
+    const el = document.getElementById('calendar');
     if (el) {
       this.customBiz.init(this.renderDayItem);
     }
@@ -92,32 +93,30 @@ class MobileCalendar extends Component {
     }
     return template
   }
+  // <div className="em-per-block pre">
+  //           <span className="mui-icon mui-icon-arrowleft"></span>
+  //           <span>上一月</span>
+  //         </div>
+  //         <div className="em-per-block mid">
+  //           <span>...</span>
+  //         </div>
+  //         <div className="em-per-block next">
+  //           <span>下一月</span>
+  //           <span className="mui-icon mui-icon-arrowright"></span>
+  //         </div>
   render() {
     return (
-      <div>
-        <div className="mui-content">
-          <div className="em-journal-title">
-            <div className="em-per-block pre">
-              <span className="mui-icon mui-icon-arrowleft"></span>
-              <span>上一月</span>
-            </div>
-            <div className="em-per-block mid">
-              <span>...</span>
-            </div>
-            <div className="em-per-block next">
-              <span>下一月</span>
-              <span className="mui-icon mui-icon-arrowright"></span>
-            </div>
+      <div className="mui-content">
+        <div className="em-journal-title">
+          <div className="current-month">
+            <span className="pre" />
+            <span className="mid">...</span>
+            <span className="next" />
           </div>
-
-          <div id="calendar">
-
-          </div>
-
+          <div className="year">2018</div>
         </div>
-        <div className="backToday">
-          返回今天
-    </div>
+        <div id="calendar">
+        </div>
       </div>
     );
   }

@@ -6,6 +6,7 @@ import {
   StatusLabel, ShopLevel, Card, Btn, CheckboxBtn, CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
   TextInput, PersonAdd, PersonIcon, FooterNav, GridNav, PageModal, ShopInfo
 } from '../../component';
+import MobileCalendar from '../TestCalendar'
 import '../index.less'
 class PageIndex extends Component {
   state = {
@@ -41,12 +42,13 @@ class PageIndex extends Component {
           shouye
         </PageHeader>
         <PageContent>
+          <MobileCalendar />
+          <WhiteSpace size="lg" />
           <ShopInfo />
           <WhiteSpace size="lg" />
-
           <Button onClick={this.open} type="paimary">点击modal</Button>
           <CardTitle title="cardtitle" extra={<p >哈哈</p>} />
-            <GridNav />
+          <GridNav />
           <WhiteSpace size="lg" />
           <Card>
             <div style={{ margin: '0 0 -21px 0' }}>
@@ -63,7 +65,6 @@ class PageIndex extends Component {
             </div>
           </Card>
           <WhiteSpace size="lg" />
-
           <Card extra={<ShopLevel />}>
             <FileUpLoad
               files={files}

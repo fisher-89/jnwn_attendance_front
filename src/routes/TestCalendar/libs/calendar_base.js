@@ -4,8 +4,7 @@
 
 import Mustache from 'mustache'
 import Swiper from 'swiper'
-// import Swiper from './swiper.min.js'
-
+import legalHolidays from  './datas'
 window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
 
     /**
@@ -618,7 +617,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     date: y + "-" + self.tom(m) + "-" + self.tod(preMonthDay), //完整日期
                     isforbid: "0", //前一个月和后一个月不可点击
                     tip: 'prev',
-                    isholiday: 0,
+                    isholiday: self.getHoliday(y + "-" + self.tom(m) + "-" + self.tod(preMonthDay)),
                 });
                 //console.log("年份：" + self.nowYear);
                 //console.log("上个月的数据：\n" + JSON.stringify(tmpInfo)+"\n");
@@ -637,7 +636,9 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         day: indexindex, //日
                         lunar: self._getLunar(indexindex), //农历
                         date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //完整日期
-                        isforbid: "1" //当前月可点击
+                        isforbid: "1", //当前月可点击
+                        isholiday: self.getHoliday(self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex)),
+
                     });
                     //  console.log(self.tom(parseInt(self.nowMonth)) + "月份：" + self.tod(indexindex));
 
@@ -655,7 +656,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         day: indexindex, //日
                         lunar: self._getLunar(indexindex), //农历
                         date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //完整日期
-                        isforbid: "1" //当前月可点击
+                        isforbid: "1",//当前月可点击
+                        isholiday: self.getHoliday(self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex)),
                     });
                     //console.log(self.tom(parseInt(self.nowMonth)) + "月份：" + self.tod(indexindex));
 
@@ -673,7 +675,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         day: indexindex, //日
                         lunar: self._getLunar(indexindex), //农历
                         date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //完整日期
-                        isforbid: "1" //当前月可点击
+                        isforbid: "1",//当前月可点击
+                        isholiday: self.getHoliday(self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex)),
                     });
                     //console.log(self.tom(parseInt(self.nowMonth)) + "月份：" + self.tod(indexindex));
                 }
@@ -690,7 +693,9 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         day: indexindex, //日
                         lunar: self._getLunar(indexindex), //农历
                         date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //完整日期
-                        isforbid: "1" //当前月可点击
+                        isforbid: "1", //当前月可点击
+                        isholiday: self.getHoliday(self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex)),
+
                     });
                     //console.log(self.tom(parseInt(self.nowMonth)) + "月份：" + self.tod(indexindex));
                 }
@@ -715,6 +720,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     date: y2 + "-" + self.tom(m2) + "-" + self.tod(index3), //完整日期
                     isforbid: "0", //前一月和后一月不可点击
                     tip: 'next',
+                    isholiday: self.getHoliday(y2 + "-" + self.tom(m2) + "-" + self.tod(index3))
                 });
                 //console.log("后面一个月的数据：\n" + JSON.stringify(tmpInfo) + "\n");
                 //console.log(self.tom(parseInt(self.nowMonth) + parseInt(1)) + "月份：" + self.tod(index3));
@@ -728,6 +734,12 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 tmpInfo: tmpInfo,
                 activeSlideNode: dateObj.activeSlideNode,
             }, callback);
+        },
+
+
+        getHoliday: function (date) {
+            console.log(date)
+            return legalHolidays.indexOf(date) > -1 ? 1 : 0
         },
 
         /**
@@ -821,13 +833,13 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             var self = this;
             // 头部样式
             self.HEADER_BAR = '<div class="em-calendar-container"><div class="em-week">\
-							<span class="em-red">日</span>\
+							<span >日</span>\
 							<span>一</span>\
 							<span>二</span>\
 							<span>三</span>\
 							<span>四</span>\
 							<span>五</span>\
-							<span class="em-red">六</span>\
+							<span>六</span>\
 						</div>';
 
             self.HEADER = '<div class="swiper-container">\
@@ -905,9 +917,9 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 initialSlide: 1,
                 speed: 150,
                 navigation: {
-                    nextEl: self.options.pre,
-                    prevEl: self.options.next,
-                  },
+                    nextEl: self.options.next,
+                    prevEl: self.options.pre,
+                },
                 on: {
                     // 增加监听点击事件
                     init: function () {
@@ -957,12 +969,20 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                             }
                         }
                         // 点击回调
-                        onItemClick && onItemClick({
-                            date: dateStr, //日期
-                            lunar: lunarStr //农历
-                        });
+                        onItemClick && onItemClick(
+                        //     {
+                        //     date: dateStr, //日期
+                        //     lunar: lunarStr //农历
+                        // }
+                        {
+                            year: currYearIndex,
+                            month: self.tom(currMonthIndex),
+                            day: currDayIndex,
+                            date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
+                            dayCount: self.dayCount
+                        }
+                    );                      
                     },
-
                 }
             });
             self.mySwiper.on('slideNextTransitionStart', function () {
@@ -990,7 +1010,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 }
                 //alert("向后回调"+">>>>>>" + currYearIndex + "-" + currMonthIndex + "-" + self.nowDay);
                 //回调
-                console.log('onSlideNextStart');
 
                 swipeCallback && swipeCallback({
                     year: currYearIndex,
@@ -1032,15 +1051,15 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     }
                     swiper.appendSlide(html);
                 });
-                // 如果往后滑动时后一个月非当前月，重新渲染1号样式
-                if (self.tom(currMonthIndex) !== self.curMonth) {
-                    var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
-                    if (chooseDom) {
-                        chooseDom.classList.remove('em-calendar-active')
-                    }
-                    document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
+                // // 如果往后滑动时后一个月非当前月，重新渲染1号样式
+                // if (self.tom(currMonthIndex) !== self.curMonth) {
+                //     var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
+                //     if (chooseDom) {
+                //         chooseDom.classList.remove('em-calendar-active')
+                //     }
+                //     document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
 
-                }
+                // }
             })
             self.mySwiper.on('slidePrevTransitionStart', function () {
                 const swiper = self.mySwiper
@@ -1105,14 +1124,14 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 });
 
                 // 如果往前滑动时前一个月非当前月，重新渲染1号样式
-                if (self.tom(currMonthIndex) !== self.curMonth) {
-                    var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
-                    if (chooseDom) {
-                        chooseDom.classList.remove('em-calendar-active')
-                    }
-                    document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
+                // if (self.tom(currMonthIndex) !== self.curMonth) {
+                //     var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
+                //     if (chooseDom) {
+                //         chooseDom.classList.remove('em-calendar-active')
+                //     }
+                //     document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
 
-                }
+                // }
             }
             )
             // 回到今天
