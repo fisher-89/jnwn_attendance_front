@@ -554,6 +554,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     for (var i = 0; i < outputs.length; i++) {
                         html += Mustache.render(templ, outputs[i]);
                     }
+                    console.log(document.querySelector(".swiper-wrapper"))
                     document.querySelector(".swiper-wrapper").innerHTML = html;
                     // 初始化swiper监听
                     self._addEvent();
@@ -903,208 +904,215 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 loop: false,
                 initialSlide: 1,
                 speed: 150,
-                prevButton: self.options.pre,
-                nextButton: self.options.next,
-                // 增加监听点击事件
-                onClick: function (swiper, e) {
-                    // console.log(e.target.innerHTML);
-                    // 日期灰色部分不启用
-                    var _this = e.target.parentNode;
-                    // 日期输出值
-                    var dateStr = _this.getAttribute('date');
-                    // 农历输出值
-                    if (_this.querySelector('.lunar')) {
-                        var lunarStr = _this.querySelector('.lunar').innerText.trim();
-                    } else {
-                        var lunarStr = "已签";
-                    }
-                    // 可点击区域
-                    if (!_this.classList.contains('isforbid0')) {
-                        if (_this.getAttribute("date")) {
-                            _this.classList.add('em-calendar-active');
-                            self.sibling(_this, function (el) {
-                                el.classList.remove('em-calendar-active');
-                            });
-                        }
-                    } else {
-                        // 不可点击区域
-                        if (_this.classList.contains('tipprev')) {
-                            // 前进
-                            self.slidePrev().then(function () {
-                                // 给特定日期新增点击激活样式
-                                self.addActiveStyleFordate(dateStr);
-                            });
-                        } else if (_this.classList.contains('tipnext')) {
-                            // 后退
-                            self.slideNext().then(function () {
-                                // 给特定日期新增点击激活样式
-                                self.addActiveStyleFordate(dateStr);
-                            });
-
-                        }
-                    }
-                    // 点击回调
-                    onItemClick && onItemClick({
-                        date: dateStr, //日期
-                        lunar: lunarStr //农历
-                    });
-                },
-                /**
-                 * @description 月份递增
-                 * @param {Object} swiper swiper对象
-                 */
-                onSlideNextStart: function (swiper) {
-                    count++;
-                    if (count == "1") {
-                        //alert("等于1，并不能代表是当前月");
-                        //alert("传过来的是"+self.nowYear+self.nowMonth);
-                        currDayIndex = self.curDay;
-                        currMonthIndex = parseInt(self.curMonth);
-                    } else {
-                        currMonthIndex = currMonthIndex + 1;
-                        currDayIndex = "01";
-
-                    }
-                    if (currMonthIndex == "13") {
-                        currYearIndex = parseInt(currYearIndex) + parseInt(1);
-                        currMonthIndex = 1;
-                    }
-                    // 开启调试模式
-                    if (self.options.isDebug) {
-                        console.log("currMonthIndex：" + currMonthIndex);
-                        console.log("currYearIndex：" + currYearIndex);
-                        console.log(">>>>>>" + self.nowYear + "-" + self.nowMonth + "-" + self.nowDay);
-                    }
-                    //alert("向后回调"+">>>>>>" + currYearIndex + "-" + currMonthIndex + "-" + self.nowDay);
-                    //回调
-                    console.log('onSlideNextStart');
-
-                    swipeCallback && swipeCallback({
-                        year: currYearIndex,
-                        month: self.tom(currMonthIndex),
-                        day: currDayIndex,
-                        date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
-                        dayCount: self.dayCount
-                    });
-                    /**
-                     * @description 后加
-                     */
-                    nextMonthIndex += parseInt(1);
-                    if (nextMonthIndex == 13) {
-                        nextYear = nextYearIndex + 1;
-                        nextMonthIndex = 1;
-                    }
-                    nextMonth = self.tom(nextMonthIndex);
-
-                    if (self.options.isDebug) {
-                        console.log("(后)初始化年月日：" + nextYear + "-" + nextMonth + "-" + "01");
-                    }
-
-                    self.refreshData({
-                        year: nextYear,
-                        month: nextMonth,
-                        day: "01"
-                    }, function (output1) {
-                        var outputs = [];
-                        outputs.push({
-                            templ: output1
+                navigation: {
+                    nextEl: self.options.pre,
+                    prevEl: self.options.next,
+                  },
+                on: {
+                    // 增加监听点击事件
+                    init: function () {
+                        swipeCallback && swipeCallback({
+                            year: currYearIndex,
+                            month: self.tom(currMonthIndex),
+                            day: currDayIndex,
+                            date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
+                            dayCount: self.dayCount
                         });
-                        // 渲染日历模板
-                        var templ = self.SLIDER_ITEM_CONTAINER;
-                        var html = "";
-                        for (var i = 0; i < outputs.length; i++) {
-                            html += Mustache.render(templ, outputs[i]);
+                    },
+                    click: function (e, swiper) {
+                        // console.log(e.target.innerHTML);
+                        // 日期灰色部分不启用
+                        var _this = e.target.parentNode;
+                        // 日期输出值
+                        var dateStr = _this.getAttribute('date');
+                        // 农历输出值
+                        if (_this.querySelector('.lunar')) {
+                            var lunarStr = _this.querySelector('.lunar').innerText.trim();
+                        } else {
+                            var lunarStr = "已签";
                         }
-                        swiper.appendSlide(html);
-                    });
-                    // 如果往后滑动时后一个月非当前月，重新渲染1号样式
-                    if (self.tom(currMonthIndex) !== self.curMonth) {
-                        var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
-                        if (chooseDom) {
-                            chooseDom.classList.remove('em-calendar-active')
+                        // 可点击区域
+                        if (!_this.classList.contains('isforbid0')) {
+                            if (_this.getAttribute("date")) {
+                                _this.classList.add('em-calendar-active');
+                                self.sibling(_this, function (el) {
+                                    el.classList.remove('em-calendar-active');
+                                });
+                            }
+                        } else {
+                            // 不可点击区域
+                            if (_this.classList.contains('tipprev')) {
+                                // 前进
+                                self.slidePrev().then(function () {
+                                    // 给特定日期新增点击激活样式
+                                    self.addActiveStyleFordate(dateStr);
+                                });
+                            } else if (_this.classList.contains('tipnext')) {
+                                // 后退
+                                self.slideNext().then(function () {
+                                    // 给特定日期新增点击激活样式
+                                    self.addActiveStyleFordate(dateStr);
+                                });
+
+                            }
                         }
-                        document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
-
-                    }
-
-                },
-                /**
-                 * @description 月份递减
-                 * @param {Object} swiper swiper对象
-                 */
-                onSlidePrevStart: function (swiper) {
-                    count--;
-                    if (count == "1") {
-                        currDayIndex = self.curDay;
-                        currMonthIndex = parseInt(self.curMonth);
-                    } else {
-                        currMonthIndex = parseInt(currMonthIndex) - parseInt(1);
-                        currDayIndex = "01";
-
-                    }
-
-                    if (currMonthIndex == 0) {
-                        currYearIndex = parseInt(currYearIndex) - parseInt(1);
-                        currMonthIndex = 12;
-                    }
-                    // 开启调试模式
-                    if (self.options.isDebug) {
-                        console.log("currMonthIndex：" + currMonthIndex);
-                        console.log("currYearIndex：" + currYearIndex);
-                        console.log("当前" + self.nowYear + "-" + self.nowMonth + "月份");
-                    }
-                    console.log('onSlidePrevStart');
-                    // 点击回调
-                    swipeCallback && swipeCallback({
-                        year: currYearIndex,
-                        month: self.tom(currMonthIndex),
-                        day: currDayIndex,
-                        date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
-                        dayCount: self.dayCount
-                    });
-
-                    if (preMonthIndex == 0) {
-                        preYearIndex--;
-                        preMonthIndex = 12;
-                    }
-                    var preMonth = self.tom(preMonthIndex);
-                    //console.log("前加：" + preYearIndex + "-" + preMonth + "-" + "01");
-                    //ejs.ui.toast("前加：" + preYearIndex + "-" + preMonth + "-" + preDay);
-
-                    preMonthIndex--;
-                    // 刷新日历
-
-                    self.refreshData({
-                        year: preYearIndex,
-                        month: preMonth,
-                        day: "01"
-                    }, function (output1) {
-
-                        var outputs = [];
-                        outputs.push({
-                            templ: output1
+                        // 点击回调
+                        onItemClick && onItemClick({
+                            date: dateStr, //日期
+                            lunar: lunarStr //农历
                         });
-                        // 渲染日历模板
-                        var templ = self.SLIDER_ITEM_CONTAINER;
-                        var html = "";
-                        for (var i = 0; i < outputs.length; i++) {
-                            html += Mustache.render(templ, outputs[i]);
-                        }
-                        swiper.prependSlide(html);
-                    });
+                    },
 
-                    // 如果往前滑动时前一个月非当前月，重新渲染1号样式
-                    if (self.tom(currMonthIndex) !== self.curMonth) {
-                        var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
-                        if (chooseDom) {
-                            chooseDom.classList.remove('em-calendar-active')
-                        }
-                        document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
-
-                    }
                 }
             });
+            self.mySwiper.on('slideNextTransitionStart', function () {
+                const swiper = self.mySwiper;
+                count++;
+                if (count == "1") {
+                    //alert("等于1，并不能代表是当前月");
+                    //alert("传过来的是"+self.nowYear+self.nowMonth);
+                    currDayIndex = self.curDay;
+                    currMonthIndex = parseInt(self.curMonth);
+                } else {
+                    currMonthIndex = currMonthIndex + 1;
+                    currDayIndex = "01";
 
+                }
+                if (currMonthIndex == "13") {
+                    currYearIndex = parseInt(currYearIndex) + parseInt(1);
+                    currMonthIndex = 1;
+                }
+                // 开启调试模式
+                if (self.options.isDebug) {
+                    console.log("currMonthIndex：" + currMonthIndex);
+                    console.log("currYearIndex：" + currYearIndex);
+                    console.log(">>>>>>" + self.nowYear + "-" + self.nowMonth + "-" + self.nowDay);
+                }
+                //alert("向后回调"+">>>>>>" + currYearIndex + "-" + currMonthIndex + "-" + self.nowDay);
+                //回调
+                console.log('onSlideNextStart');
+
+                swipeCallback && swipeCallback({
+                    year: currYearIndex,
+                    month: self.tom(currMonthIndex),
+                    day: currDayIndex,
+                    date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
+                    dayCount: self.dayCount
+                });
+                /**
+                 * @description 后加
+                 */
+                nextMonthIndex += parseInt(1);
+                if (nextMonthIndex == 13) {
+                    nextYear = nextYearIndex + 1;
+                    nextMonthIndex = 1;
+                }
+                nextMonth = self.tom(nextMonthIndex);
+
+                if (self.options.isDebug) {
+                    console.log("(后)初始化年月日：" + nextYear + "-" + nextMonth + "-" + "01");
+                }
+
+                self.refreshData({
+                    year: nextYear,
+                    month: nextMonth,
+                    day: "01"
+                }, function (output1) {
+                    var outputs = [];
+                    outputs.push({
+                        templ: output1
+                    });
+                    // 渲染日历模板
+                    var templ = self.SLIDER_ITEM_CONTAINER;
+                    var html = "";
+                    for (var i = 0; i < outputs.length; i++) {
+                        html += Mustache.render(templ, outputs[i]);
+                    }
+                    swiper.appendSlide(html);
+                });
+                // 如果往后滑动时后一个月非当前月，重新渲染1号样式
+                if (self.tom(currMonthIndex) !== self.curMonth) {
+                    var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
+                    if (chooseDom) {
+                        chooseDom.classList.remove('em-calendar-active')
+                    }
+                    document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
+
+                }
+            })
+            self.mySwiper.on('slidePrevTransitionStart', function () {
+                const swiper = self.mySwiper
+                count--;
+                if (count == "1") {
+                    currDayIndex = self.curDay;
+                    currMonthIndex = parseInt(self.curMonth);
+                } else {
+                    currMonthIndex = parseInt(currMonthIndex) - parseInt(1);
+                    currDayIndex = "01";
+
+                }
+
+                if (currMonthIndex == 0) {
+                    currYearIndex = parseInt(currYearIndex) - parseInt(1);
+                    currMonthIndex = 12;
+                }
+                // 开启调试模式
+                if (self.options.isDebug) {
+                    console.log("currMonthIndex：" + currMonthIndex);
+                    console.log("currYearIndex：" + currYearIndex);
+                    console.log("当前" + self.nowYear + "-" + self.nowMonth + "月份");
+                }
+                console.log('onSlidePrevStart');
+                // 点击回调
+                swipeCallback && swipeCallback({
+                    year: currYearIndex,
+                    month: self.tom(currMonthIndex),
+                    day: currDayIndex,
+                    date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
+                    dayCount: self.dayCount
+                });
+
+                if (preMonthIndex == 0) {
+                    preYearIndex--;
+                    preMonthIndex = 12;
+                }
+                var preMonth = self.tom(preMonthIndex);
+                //console.log("前加：" + preYearIndex + "-" + preMonth + "-" + "01");
+                //ejs.ui.toast("前加：" + preYearIndex + "-" + preMonth + "-" + preDay);
+
+                preMonthIndex--;
+                // 刷新日历
+
+                self.refreshData({
+                    year: preYearIndex,
+                    month: preMonth,
+                    day: "01"
+                }, function (output1) {
+
+                    var outputs = [];
+                    outputs.push({
+                        templ: output1
+                    });
+                    // 渲染日历模板
+                    var templ = self.SLIDER_ITEM_CONTAINER;
+                    var html = "";
+                    for (var i = 0; i < outputs.length; i++) {
+                        html += Mustache.render(templ, outputs[i]);
+                    }
+                    swiper.prependSlide(html);
+                });
+
+                // 如果往前滑动时前一个月非当前月，重新渲染1号样式
+                if (self.tom(currMonthIndex) !== self.curMonth) {
+                    var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
+                    if (chooseDom) {
+                        chooseDom.classList.remove('em-calendar-active')
+                    }
+                    document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
+
+                }
+            }
+            )
             // 回到今天
             if (self._selector(self.options.backToToday)) {
                 self._selector(self.options.backToToday).addEventListener("touchstart", function () {

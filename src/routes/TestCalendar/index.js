@@ -1,18 +1,17 @@
 
 import React, { Component } from 'react';
+// import customBiz from './js/calendar_showcase.js'
 import Calendar from './libs/calendar_base.js'
 
 import './css/mui.min.css'
 import './libs/swiper.min.css'
 import './libs/calendar_base.css'
 import './css/showcase.css'
-
 class MobileCalendar extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.customBiz = {
       init: function (template) {
-        var self = this;
         // 初始化日历
         var calendar = new Calendar({
           // swiper滑动容器
@@ -68,14 +67,13 @@ class MobileCalendar extends Component {
   componentDidMount() {
     const el = document.getElementById('calendar');
     if (el) {
-      this.customBiz.init(this.renderDayItem);
+      this.customBiz.init();
     }
   }
 
   renderDayItem = (value, curr) => {
-
     let template = '';
-    if (value.date == curr) {
+    if (value.date === curr) {
       //今天
       if (value.isSelected) {
         template = '<div class="em-calendar-item em-calendar-active  isforbid{{isforbid}}" date="{{date}}"><span class="day">{{day}}</span><span class="dot dot-type1"></span></div>';
