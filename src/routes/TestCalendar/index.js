@@ -67,7 +67,7 @@ class MobileCalendar extends Component {
   componentDidMount() {
     const el = document.getElementById('calendar');
     if (el) {
-      this.customBiz.init();
+      this.customBiz.init(this.renderDayItem);
     }
   }
 

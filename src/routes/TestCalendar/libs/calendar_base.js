@@ -16,6 +16,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
      * type 类别，默认为default代表 8-4-4-4-12的模式，如果为 noline代表不会有连线
      * @return {String} 返回一个随机性的唯一uuid
      */
+
     exports.uuid = function (options) {
         options = options || {};
 
@@ -999,9 +1000,11 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
                     dayCount: self.dayCount
                 });
+                
                 /**
                  * @description 后加
                  */
+
                 nextMonthIndex += parseInt(1);
                 if (nextMonthIndex == 13) {
                     nextYear = nextYearIndex + 1;
@@ -1010,7 +1013,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 nextMonth = self.tom(nextMonthIndex);
 
                 if (self.options.isDebug) {
-                    console.log("(后)初始化年月日：" + nextYear + "-" + nextMonth + "-" + "01");
+                    console.log("(后)初始化年月日：" + nextYear + "-" + nextMonth + "-01");
                 }
 
                 self.refreshData({
