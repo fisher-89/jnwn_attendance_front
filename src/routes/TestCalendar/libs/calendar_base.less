@@ -1,18 +1,8 @@
 @import '../../../utils/var.less';
-/*日历容器样式*/
 
-.em-calendar-container,
-.em-calendar-wrapper-week,
-.em-calendar-wrapper,
-.em-calendar {
-  overflow: hidden;
-  background: #ffffff;
+.em-calendar-container{
+  border-radius: @card-radius;
 }
-
-.em-calendar-container {
-  border-bottom: 1px solid #e0e0e0;
-}
-
 /*标注红色*/
 
 .em-red {
@@ -22,33 +12,33 @@
 /*最上面一行周历显示*/
 
 .em-week {
-	display: flex;
-	padding:6px 0 9px 0;
+  display: flex;
+  padding: 6px 7px 9px 8px;
   justify-content: space-around;
-	.fontStyle(@text-assist-color, 14px);
-	span{
-		height: 22px;
-		line-height: 22px;
-	}
+  .fontStyle(@text-assist-color, 14px);
+  span {
+    height: 22px;
+    line-height: 22px;
+    width: 48px;
+    text-align: center;
+  }
+}
+
+.em-calendar-content {
+  padding: 0 7px @card-radius @card-radius;
+	border-radius: @card-radius;
 }
 
 .em-calendar-content .em-calendar-item {
-  float: left;
-  width: 14.285vw;
-  height: 14.285vw;
-  text-align: center;
-  /*border:1px solid #000;*/
-  border-radius: 50%;
-  margin-bottom: 5px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 周六、周日列字体标红*/
-
-.em-calendar-content .em-calendar-item:nth-child(7n) .day,
-.em-calendar-content .em-calendar-item:nth-child(7n+1) .day {
-  color: #E60012;
-  font-size: 16px;
-}
 
 /* 上个月和下个月  置成灰色，不可点击*/
 
@@ -57,11 +47,9 @@
 .em-calendar-content .isforbid0.em-calendar-item {}
 
 .em-calendar-content .isforbid0.em-calendar-item .day {
-  display: block;
-  padding-top: 7px;
-  font-size: 16px;
-  color: #D8D8D8;
+  .fontStyle(rgb(238, 238, 238), 14px);
 }
+
 
 .em-calendar-content .isforbid0.em-calendar-item .lunar {
   font-size: 10px;
@@ -69,50 +57,35 @@
   margin-top: -3px;
 }
 
-.em-calendar-content .em-calendar-item .day {
-  display: block;
-  padding-top: 2vw;
-  font-size: 16px;
-  color: #333333;
+.em-calendar-item {
+  .day {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/icons/location.png') no-repeat center 30px;
+    background-size: 4px;
+    &.night {
+      background: url('/icons/night.png') no-repeat center 30px;
+      background-size: 4px;
+    }
+    &.morning {
+      background: url('/icons/morning.png') no-repeat center 30px;
+      background-size: 4px;
+    }
+  }
+  &.isforbid0 {
+    .day {
+      background: none;
+    }
+  }
 }
 
 .em-calendar-content .em-calendar-item .lunar {
   font-size: 10px;
   color: #666666;
   margin-top: -3px;
-}
-
-/*通用点皮肤*/
-
-.em-calendar-content .em-calendar-item .dot {
-  display: inline-flex;
-  width: 8px;
-  height: 8px;
-  margin-top: -13px;
-  position: absolute;
-  margin-left: -4px;
-}
-
-/*皮肤1*/
-
-.em-calendar-content .em-calendar-item .dot-type1 {
-  background-image: url(../img/img_sdule_point.png);
-  background-size: 100% 100%;
-}
-
-/*皮肤2*/
-
-.em-calendar-content .em-calendar-item .dot-type2 {
-  background-image: url(../img/img_success.png);
-  background-size: 100% 100%;
-}
-
-.em-calendar-content .em-calendar-item img {
-  width: 10px;
-  height: 10px;
-  margin-top: -12px;
-  position: absolute;
-  margin-left: -3px;
 }
 
 /**
@@ -146,18 +119,13 @@
 
 /*点击效果*/
 
-.em-calendar-content .em-calendar-active.em-calendar-item:nth-child(7n) .day,
-.em-calendar-content .em-calendar-active.em-calendar-item:nth-child(7n+1) .day {
-  color: #ffffff;
+.em-calendar-active .day {
+  border: 1px solid @theme-color;
+  border-radius: 50%;
 }
 
-.em-calendar-active {
-  background-color: #3C80E6;
-  width: 14.285%;
-  height: 54px;
-}
-
-.em-calendar-content .em-calendar-active .day,
-.em-calendar-content .em-calendar-active .lunar {
-  color: #FFFFFF;
+.em-calendar-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }

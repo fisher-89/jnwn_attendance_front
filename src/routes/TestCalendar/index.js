@@ -11,7 +11,7 @@ class MobileCalendar extends Component {
   constructor(props) {
     super(props)
     this.customBiz = {
-      init: function (template) {
+      init: function (template, onItemClick) {
         // 初始化日历
         var calendar = new Calendar({
           // swiper滑动容器
@@ -37,9 +37,9 @@ class MobileCalendar extends Component {
           },
           // 点击日期事件
           onItemClick: function (item) {
-
             // 设置标题
             setTitle(item);
+            onItemClick(item);
           },
           // 滑动回调
           swipeCallback: function (item) {
@@ -67,43 +67,14 @@ class MobileCalendar extends Component {
   }
 
   componentDidMount() {
+    const { renderDayItem, onItemClick } = this.props;
     const el = document.getElementById('calendar');
-    if (el) {
-      this.customBiz.init(this.renderDayItem);
+    const swiperContainer = document.querySelector('.swiper-container')
+    if (el && swiperContainer) {
+      this.customBiz.init(renderDayItem, onItemClick);
     }
   }
 
-  renderDayItem = (value, curr) => {
-    let template = '';
-    const { isforbid, date, tip, day } = value;
-    if (value.date === curr) {
-      //今天
-      if (value.isSelected) {
-        template = `<div class='em-calendar-item em-calendar-active  isforbid${isforbid}' date=${date}><span class="day">${day}</span><span class="dot dot-type1"></span></div>`;
-      } else {
-        template = `<div class='em-calendar-item em-calendar-active  isforbid${isforbid}' date=${date}><span class="day">${day}</span></div>`;
-      }
-    } else {
-      if (value.isSelected) {
-        // 个性化和业务贴近
-        template = `<div class='em-calendar-item em-calendar-active  isforbid${isforbid} tip${tip}' date=${date}><span class="day">${day}</span><span class="dot dot-type1"></span></div>`;
-      } else {
-        template = `<div class='em-calendar-item  isforbid${isforbid} tip${tip}' date=${date}><span class="day"  >${day}</span></div>`;
-      }
-    }
-    return template
-  }
-  // <div className="em-per-block pre">
-  //           <span className="mui-icon mui-icon-arrowleft"></span>
-  //           <span>上一月</span>
-  //         </div>
-  //         <div className="em-per-block mid">
-  //           <span>...</span>
-  //         </div>
-  //         <div className="em-per-block next">
-  //           <span>下一月</span>
-  //           <span className="mui-icon mui-icon-arrowright"></span>
-  //         </div>
   render() {
     return (
       <div className="mui-content">
@@ -116,13 +87,57 @@ class MobileCalendar extends Component {
           <div className="year">2018</div>
         </div>
         <div id="calendar">
+          <div className="em-calendar-container">
+            <div className="em-week">
+              <span >日</span>
+              <span>一</span>
+              <span>二</span>
+              <span>三</span>
+              <span>四</span>
+              <span>五</span>
+              <span>六</span>
+            </div>
+            <div className="swiper-container">
+              <div className="swiper-wrapper">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 }
 MobileCalendar.defaultProps = {
-  template: () => {
+  renderDayItem: (value, curr) => {
+    let template = '';
+    const { isforbid, date, tip, day, isholiday } = value;
+    const realValue = isholiday === 1 ? '节' : day
+    if (value.date === curr) {
+      //今天
+      if (value.isSelected) {
+        template = `<div class='em-calendar-item em-calendar-active  isforbid${isforbid}' date=${date}>
+          <span class="day">${realValue}</span>
+        </div>`;
+      } else {
+        template = `<div class='em-calendar-item em-calendar-active  isforbid${isforbid}' date=${date}>
+        <span class="day">${realValue}</span>
+        </div>`;
+      }
+    } else {
+      if (value.isSelected) {
+        // 个性化和业务贴近
+        template = `<div class='em-calendar-item em-calendar-active  isforbid${isforbid} tip${tip || ''}' date=${date}>
+        <span class="day night">${realValue}</span>
+        </div>`;
+      } else {
+        template = `<div class='em-calendar-item  isforbid${isforbid} tip${tip || ''}' date=${date}>
+        <span class="day morning"  >${realValue}</span>
+        </div>`;
+      }
+    }
+    return template
+  },
+  onItemClick: () => {
 
   }
 }
