@@ -12,8 +12,18 @@
     .day {
       background: none;
       .fontStyle(@text-main-color, 24px);
+    } 
+    &.edit1 {
+      border:1px dotted @text-assist-sub-color;
+      background: url('/shopIcon/A.png') no-repeat right top;
+      background-size: 10px;
+      &.em-calendar-active{
+        background: rgba(253, 208, 0, 0.1);
+      }
     }
     &.isforbid0 {
+      background: none;
+      border-color: transparent;
       .day {
         .fontStyle(@filter-bg-color, 24px)
       }

@@ -6,7 +6,7 @@ class ShopInfo extends Component {
   render() {
     const { style, info: { shopSn, shopName, address, level } } = this.props;
     return (
-      <Card extra={<ShopLevel level={level} />}>
+      <Card extra={<ShopLevel level={level} />} style={style}>
         <div className="sno">{shopSn}</div>
         <div className="name">{shopName}</div>
         {address ?

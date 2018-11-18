@@ -1,5 +1,14 @@
 const menuGlobal = [
   {
+    id: 'personscheduling',
+    pid: '0',
+    name: 'personscheduling',
+    icon: 'user',
+    path: '/person_scheduling',
+    models: [], //models可多个
+    component: () => import('../routes/Scheduling/personScheduling.js'),
+  },
+  {
     id: 'aaa',
     pid: '0',
     name: 'aaa页',

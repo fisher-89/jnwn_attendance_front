@@ -43,7 +43,7 @@ class PageIndex extends Component {
         </PageHeader>
         <PageContent>
         <WhiteSpace size="lg" />
-          <MobileCalendar />
+          <MobileCalendar key={this.props.location.pathname} />
           <WhiteSpace size="lg" />
           <ShopInfo />
           <WhiteSpace size="lg" />

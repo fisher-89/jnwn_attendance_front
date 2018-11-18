@@ -66,6 +66,18 @@ class MobileCalendar extends Component {
     }
   }
 
+  componentWillReceiveProps(props) {
+    const { key } = props;
+    if (key !== this.props.key) {
+      const { renderDayItem, onItemClick } = this.props;
+      const el = document.getElementById('calendar');
+      const swiperContainer = document.querySelector('.swiper-container')
+      if (el && swiperContainer) {
+        this.customBiz.init(renderDayItem, onItemClick);
+      }
+    }
+
+  }
   componentDidMount() {
     const { renderDayItem, onItemClick } = this.props;
     const el = document.getElementById('calendar');
@@ -108,6 +120,7 @@ class MobileCalendar extends Component {
   }
 }
 MobileCalendar.defaultProps = {
+  key: 'calendar',
   renderDayItem: (value, curr) => {
     let template = '';
     const { isforbid, date, tip, day, isholiday } = value;
