@@ -1,3 +1,6 @@
+
+@import '../../utils/var.less';
+
 .footerbar {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   background: #fff;
@@ -5,6 +8,9 @@
   :global {
     .am-tab-bar-bar::before {
       content: none !important;
+    }
+    .am-tab-bar-bar .am-tab-bar-tab-title{
+      .font-dpr(10px)
     }
     // .am-tab-bar {
     //   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);

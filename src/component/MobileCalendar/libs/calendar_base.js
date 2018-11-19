@@ -745,7 +745,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             }, callback);
         },
 
-
         getHoliday: function (date) {
             return legalHolidays.indexOf(date) > -1 ? 1 : 0
         },
