@@ -15,8 +15,8 @@ export const tabbar = [{
 },
 {
   title: '排班',
-  key: 'statistics',
-  to: '/statistics',
+  key: 'person_scheduling',
+  to: '/person_scheduling',
   icon: '/tabbar/排班-未选中@2x.png',
   selIcon: '/tabbar/排班-选中@2x.png',
 },

@@ -27,19 +27,18 @@ class Buttons extends Component {
   }
 
   render() {
-    const { children, size, fill, style, type,handleClick } = this.props;
+    const { children, size, fill, style, type, handleClick } = this.props;
     const sizeClass = this.switchSizeClass(size);
     const fillStyle = this.witchFillClass(fill);
     const typeClass = this.switchTypeClass(type);
     const btnClass = classNames("button", sizeClass, `${fillStyle}_${typeClass}`);
     return (
-      <div 
-      className={btnClass} 
-      style={style}
-      onClick={handleClick}
+      <div
+        className={btnClass}
+        style={style}
+        onClick={handleClick}
       >
-      
-      {children}
+        {children}
       </div>
     );
   }

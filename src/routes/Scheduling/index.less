@@ -1,3 +1,4 @@
+@import '../../utils/var.less';
 :global {
   .slider-slide {
     padding-top: 4px;
@@ -6,6 +7,85 @@
     top: 124px;
   }
 }
+
 .carousel_item {
   padding: 4px;
+}
+
+.switch_date {
+  height: 44px;
+  line-height: 44px;
+  display: flex;
+  padding: 0 44px;
+  justify-content: space-between;
+  .last,
+  .next {
+    height: 44px;
+    width: 44px;
+  }
+  .last {
+    background: url('/icons/left.png') no-repeat center;
+    background-size: 8px 16px;
+  }
+  .last_dis {
+    background: url('/icons/left_disable.png') no-repeat center;
+    background-size: 8px 16px;
+  }
+  .next {
+    background: url('/icons/right.png') no-repeat center;
+    background-size: 8px 16px;
+  }
+  .next_dis {
+    background: url('/icons/right_disable.png') no-repeat center;
+    background-size: 8px 16px;
+  }
+  .date_info {
+    display: flex;
+    span {
+      color: @text-main-color;
+      width: 66px;
+      text-align: center;
+    }
+    span:first-child{
+      .font-dpr(24px);
+    }
+    span:last-child{
+      .font-dpr(12px)
+    }
+  }
+}
+
+.staff_scheduling_info {
+  padding: 0 @level-side15;
+  max-height: 424px;
+  overflow: auto;
+  .staff_name_container{
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.attendence {
+  margin-top: @vertical-margin15;
+  margin-bottom: @vertical-margin21;
+  .fontStyle(@text-assist-color,
+  12px);
+  line-height: 20px;
+  height: 20px;
+  >div+div {
+    margin-top: @vertical-margin6;
+  }
+  span {
+    margin-right: @level-side15;
+  }
+}
+
+.footer_btn {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  padding: @vertical-margin15 27px;
+  display: flex;
+  justify-content: space-between;
+  >div {
+    width: 150px;
+  }
 }

@@ -1,0 +1,44 @@
+@import '../../utils/var.less';
+.day_shift {
+  .font-dpr(12px);
+  padding-left: 11px;
+  span:first-child {
+    margin-right: @level-side5;
+  }
+  color: @day-shift-color;
+  background: url('/icons/morning.png') no-repeat left center;
+  background-size: 6px;
+}
+
+.night_shift {
+  padding-left: 11px;
+  span:first-child {
+    margin-right: @level-side5;
+  }
+  .font-dpr(12px);
+  color: @night-shift-color;
+  background: url('/icons/night.png') no-repeat left center;
+  background-size: 6px;
+}
+
+.all_shift {
+  padding-left: 11px;
+  span:first-child {
+    margin-right: @level-side5;
+  }
+  .font-dpr(12px);
+  color: @interspersed-color;
+  background: url('/icons/all_shift.png') no-repeat left center;
+  background-size: 6px;
+}
+
+.notwork {
+  padding-left: 11px;
+  span:first-child {
+    margin-right: @level-side5;
+  }
+  .font-dpr(12px);
+  color: @text-assist-sub-color;
+  background: url('/icons/rest.png') no-repeat left center;
+  background-size: 6px;
+}

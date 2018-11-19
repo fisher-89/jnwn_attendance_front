@@ -1,0 +1,47 @@
+@import '../../utils/var.less';
+.scheduling_info {
+  .table_header {
+    display: flex;
+    border-bottom:1px solid @text-assist-sub-color;
+    .header_title {
+      height: 36px;
+      line-height: 36px;
+      .fontStyle(@text-main-color, 12px);
+      width: 71px;
+    }
+    .header_title:first-child {
+      padding-left: 10px;
+    }
+    .header_title+.header_title {
+      width: 56px;
+      text-align: center;
+    }
+  }
+  .table_content {
+    display: flex;
+    border-bottom:1px solid @text-assist-sub-color;
+    >div {
+      width: 71px;
+      height: 36px;
+      line-height: 36px;
+      .fontStyle(@text-assist-color, 12px);
+    }
+    >div+div {
+      width: 56px;
+      text-align: center;
+    }
+    .staff_name{
+      padding-left: 10px;
+      color: @text-main-color;
+    }
+    .all_count {
+      color: @text-main-color;
+    }
+  }
+  .table_footer{
+    margin-top: @vertical-margin6;
+    text-align: right;
+    line-height: 20px;
+    .fontStyle(@text-assist-color,12px)
+  }
+}

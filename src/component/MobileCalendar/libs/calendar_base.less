@@ -1,0 +1,135 @@
+@import '../../../utils/var.less';
+
+.em-calendar-container{
+  border-radius: @card-radius;
+}
+/*标注红色*/
+
+.em-red {
+  color: #E60012;
+}
+
+/*最上面一行周历显示*/
+
+.em-week {
+  display: flex;
+  padding: 6px 7px 9px 8px;
+  justify-content: space-around;
+  .fontStyle(@text-assist-color, 14px);
+  span {
+    height: 22px;
+    line-height: 22px;
+    width: 48px;
+    text-align: center;
+  }
+}
+
+.em-calendar-content {
+  padding: 0 7px @card-radius @card-radius;
+	border-radius: @card-radius;
+}
+
+.em-calendar-content .em-calendar-item {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 周六、周日列字体标红*/
+
+/* 上个月和下个月  置成灰色，不可点击*/
+
+.em-calendar-content .isforbid1.em-calendar-item {}
+
+.em-calendar-content .isforbid0.em-calendar-item {}
+
+.em-calendar-content .isforbid0.em-calendar-item .day {
+  .fontStyle(rgb(238, 238, 238), 14px);
+}
+
+
+.em-calendar-content .isforbid0.em-calendar-item .lunar {
+  font-size: 10px;
+  color: #D8D8D8;
+  margin-top: -3px;
+}
+
+.em-calendar-item {
+  .day {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/icons/all_shift.png') no-repeat center 28px;
+    background-size: 4px;
+    &.night {
+      background: url('/icons/night.png') no-repeat center 28px;
+      background-size: 4px;
+    }
+    &.morning {
+      background: url('/icons/morning.png') no-repeat center 28px;
+      background-size: 4px;
+    }
+    &.all {
+      background: url('/icons/all_shift.png') no-repeat center 28px;
+      background-size: 4px;
+    }
+  }
+  &.isforbid0 {
+    .day {
+      background: none;
+    }
+  }
+}
+
+.em-calendar-content .em-calendar-item .lunar {
+  font-size: 10px;
+  color: #666666;
+  margin-top: -3px;
+}
+
+/**
+ * 日历表中的颜色
+ * 日历拓展；四种样式
+ **/
+
+/*迟到*/
+
+.em-calendar-late {
+  border: 2px solid #F5B6B6;
+}
+
+/*早退*/
+
+.em-calendar-early {
+  border: 2px solid #F5CAB6;
+}
+
+/*调休*/
+
+.em-calendar-rest {
+  border: 2px solid #D5E6D4;
+}
+
+/*请假*/
+
+.em-calendar-leave {
+  border: 2px solid #AFDDD9;
+}
+
+/*点击效果*/
+
+.em-calendar-active .day {
+  border: 1px solid @theme-color;
+  border-radius: 50%;
+}
+
+.em-calendar-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

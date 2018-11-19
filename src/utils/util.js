@@ -82,3 +82,18 @@ export function getUrlParams(url) {
   }
   return obj;
 }
+
+export function findAppointParent(el, classname) {
+  if (el.classList.contains(classname)) {
+    return el
+  }
+  let parentNode = el.parentNode;
+
+  while (parentNode !== null) {
+    if (parentNode.classList.contains(classname)) {
+      break;
+    }
+    parentNode = parentNode.parentNode;
+  }
+  return parentNode
+}

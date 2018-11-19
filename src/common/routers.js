@@ -9,6 +9,15 @@ const menuGlobal = [
     component: () => import('../routes/Scheduling/personScheduling.js'),
   },
   {
+    id: 'shopscheduling',
+    pid: '0',
+    name: 'shopscheduling',
+    icon: 'user',
+    path: '/shop_scheduling',
+    models: [], //models可多个
+    component: () => import('../routes/Scheduling/shopScheduling.js'),
+  },
+  {
     id: 'aaa',
     pid: '0',
     name: 'aaa页',

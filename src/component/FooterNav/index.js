@@ -9,8 +9,8 @@ export default class Footer extends React.Component {
     return (
       <div className="footerbar">
         <TabBar
-          unselectedTintColor="#949494"
-          tintColor="#33A3F4"
+          tintColor="rgb(53,48,49)"
+          unselectedTintColor="rgb(127,123,125)"
           barTintColor="white"
         >
           {tabbar.map((item, i) => {
@@ -19,19 +19,20 @@ export default class Footer extends React.Component {
               <TabBar.Item
                 title={item.title}
                 key={idx}
+
                 icon={
                   <div style={{
-                    width: '22px',
-                    height: '22px',
-                    background: `url(${item.icon}) center center /  21px 21px no-repeat`,
+                    width: '24px',
+                    height: '24px',
+                    background: `url(${item.icon}) center center /  24px 24px no-repeat`,
                   }}
                   />
                 }
                 selected={pathname === item.to}
                 selectedIcon={<div style={{
-                  width: '22px',
-                  height: '22px',
-                  background: `url(${item.selIcon}) center center /  21px 21px no-repeat`,
+                  width: '24px',
+                  height: '24px',
+                  background: `url(${item.selIcon}) center center /  24px 24px no-repeat`,
                 }}
                 />
                 }

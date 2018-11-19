@@ -7,6 +7,7 @@ class PageContent extends Component {
     return (
       <div className="page_content" style={style}>
         {children}
+        <div className="page_content_footer"></div>
       </div>
     );
   }

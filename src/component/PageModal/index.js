@@ -68,14 +68,15 @@ class Alert extends Component {
               <span className="close" onClick={this.close} />
             </div>
             <div className="alert-content-detail" >
-            {this.state.content}
+              {this.state.content}
             </div>
-            <div className="alert-footer">
+            {this.state.footer && <div className="alert-footer">
               <Btn size="l" fill
                 style={{ color: 'rgb(53, 48, 49)' }}
                 handleClick={this.confirm}
               >确定</Btn>
-            </div>
+            </div>}
+
           </div>
         </div>
       </ReactCSSTransitionGroup>

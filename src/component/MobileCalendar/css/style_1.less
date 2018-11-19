@@ -1,0 +1,76 @@
+@import '../../../utils/var.less';
+.em-calendar-content .day {
+  .fontStyle(rgb(238, 238, 238), 14px);
+}
+
+.em-calendar-content {
+  .em-calendar-item {
+    width: 48px;
+    height: 72px;
+    border: 1px solid transparent;
+    margin: 0;
+    .day {
+      background: none;
+      .fontStyle(@text-main-color, 24px);
+    } 
+    &.edit1 {
+      border:1px dotted @text-assist-sub-color;
+      background: url('/icons/edit.png') no-repeat right top;
+      background-size: 10px;
+      &.em-calendar-active{
+        background: rgba(253, 208, 0, 0.1);
+      }
+    }
+    &.isforbid0 {
+      background: none;
+      border-color: transparent;
+      .day {
+        .fontStyle(@filter-bg-color, 24px)
+      }
+      .morwork,
+      .nightwork,.allwork,
+      .restday {
+        span{
+          background: none;
+        }
+      }
+    }
+  }
+  .morwork,
+  .nightwork,
+  .restday,.allwork {
+    display: flex;
+    justify-content: space-around;
+    width: 48px;
+    margin-top: 3px;
+    height: 3px;
+    span {
+      width: 3px;
+      height: 3px;
+    }
+  }
+  .morwork .work {
+    background: url(/icons/morning.png) no-repeat center;
+    background-size: 3px;
+  }
+  .nightwork .work {
+    background: url(/icons/night.png) no-repeat center;
+    background-size: 3px;
+  }
+  .allwork .work {
+    background: url(/icons/all_shift.png) no-repeat center;
+    background-size: 3px;
+  }
+  
+  .restday .work {
+    background: url(/icons/rest.png) no-repeat center;
+    background-size: 3px;
+  }
+  .em-calendar-active {
+    background: rgba(253, 208, 0, 0.1);
+    border-radius: 0;
+  }
+  .em-calendar-active .day{
+    border:none;
+  }
+}
