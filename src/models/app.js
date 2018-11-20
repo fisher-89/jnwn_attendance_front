@@ -13,7 +13,6 @@ export default {
       //  曾经登录过，调到该权限可以看到的界面
       const pathname = history.location.pathname;
       if (pathname === '/get_access_token' || pathname === '/refresh_access_token' || pathname === '/redirect_to_authorize') {
-        console.log(pathname)
         return;
       }
       else if (!isLogin()) {

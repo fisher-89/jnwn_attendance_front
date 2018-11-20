@@ -13,113 +13,108 @@ import './css/showcase.less'
 class MobileCalendar extends Component {
   constructor(props) {
     super(props);
+    console.log('constructor:', props);
     this.state = {
       currentDate: { month: '08', year: '2018' },
       nowDate: { year: new Date().getFullYear(), month: new Date().getMonth() + 1 }
     }
-    this.customBiz = {
-      init: (template, onItemClick) => {
-        // 初始化日历
-        var calendar = new Calendar({
-          // swiper滑动容器
-          container: "#calendar",
-          // 上一月节点
-          pre: ".pre",
-          // 下一月节点
-          next: ".next",
-          template: template,
-          // 回到今天
-          backToToday: ".backToday",
-          // 业务数据改变
-          dataRequest: function (currdate, callback, _this) {
-            // 无日程安排
-            var data = [{
-              "date": "2018-04-18"
-            }, {
-              "date": "2018-04-17"
-            }, {
-              "date": "2018-04-16"
-            }];
-            callback && callback(data);
-          },
-          // 点击日期事件
-          onItemClick: function (item) {
-            // 设置标题
-            setTitle(item);
-            onItemClick(item);
-          },
-          // 滑动回调
-          swipeCallback: function (item) {
-            var defaultDate = item.date;
-            // 设置标题
-            setTitle(item);
-            // 动态新增点击样式
-            calendar.addActiveStyleFordate(defaultDate);
-          },
-          // 调试
-          isDebug: false
-        });
-        this.setState({
-          calendar
-        })
-        // 设置标题
-        var titleNode = document.querySelector('.current-month span.mid');
-        var yearNode = document.querySelector('.em-journal-title .year');
-        const setTitle = (item) => {
-          const { month, year } = item;
-          // currentDate = item.date;
-          this.setState({
-            currentDate: item
-          })
-          titleNode.innerText = monthTransform(month) + "月";
-          yearNode.innerText = year;
-        }
-      }
-    }
   }
 
   componentWillReceiveProps(props) {
-    const { uniqueKey } = props;
-    // if (JSON.stringify(props) !== this.props) {
-      const { renderDayItem, onItemClick } = this.props;
-      const el = document.getElementById('calendar');
-      const swiperContainer = document.querySelector('.swiper-container')
-      if (el && swiperContainer) {
-        this.customBiz.init(renderDayItem, onItemClick);
-      }
+    console.log('componentWillReceiveProps')
+    this.calendar.refresh();
+
+    // const { id } = props;
+    // // if (JSON.stringify(props) !== this.props) {
+    // const { renderDayItem, onItemClick } = this.props;
+    // const el = document.getElementById('calendar');
+    // // const swiperContainer = document.querySelector('.swiper-container')
+    // if (el ) {
+    //   this.customBiz.init(renderDayItem, onItemClick, id);
+    // }
     // }
   }
 
   componentDidMount() {
-    const { renderDayItem, onItemClick } = this.props;
+    console.log('componentDidMount')
+    const { renderDayItem, onItemClick, id } = this.props;
     const el = document.getElementById('calendar');
-    const swiperContainer = document.querySelector('.swiper-container')
-    if (el && swiperContainer) {
-      this.customBiz.init(renderDayItem, onItemClick);
+    if (el) {
+      this.initCalenda(renderDayItem, onItemClick, id);
     }
   }
 
-  componentWillUnmount() {
-    this.state.calendar.refresh();
+  initCalenda = (template, onItemClick, id) => {
+    this.calendar = new Calendar({
+      swiper: `#${id}`,
+      // swiper滑动容器
+      container: "#calendar",
+      // 上一月节点
+      pre: ".pre",
+      // 下一月节点
+      next: ".next",
+      template: template,
+      // 回到今天
+      backToToday: ".backToday",
+      // 业务数据改变
+      dataRequest: function (currdate, callback, _this) {
+        // 无日程安排
+        var data = [{
+          "date": "2018-04-18"
+        }, {
+          "date": "2018-04-17"
+        }, {
+          "date": "2018-04-16"
+        }];
+        callback && callback(data);
+      },
+      // 点击日期事件
+      onItemClick: (item) => {
+        // 设置标题
+        this.setTitle(item);
+        onItemClick(item)
+      },
+      // 滑动回调
+      swipeCallback: (item) => {
+        var defaultDate = item.date;
+        // 设置标题
+        this.setTitle(item);
+        // 动态新增点击样式
+        this.calendar.addActiveStyleFordate(defaultDate);
+      },
+      // 调试
+      isDebug: false
+    });
   }
 
+  setTitle = (item) => {
+    const { month, year } = item;
+    // currentDate = item.date;
+    const mid = monthTransform(month) + "月";
+    this.setState({
+      currentDate: item,
+      mid,
+      year
+    })
+  }
   render() {
+    const { id, className } = this.props;
     const { year, month } = this.state.currentDate;
-    const { nowDate } = this.state
+    const { nowDate, mid } = this.state
     const nowDateStr = moment(`${nowDate.year}-${nowDate.month}-01 00:00:00`).unix();
     const curDateStr = moment(`${year}-${month}-01 00:00:00`).unix();
-    const nextStyleClass = curDateStr < nowDateStr ? 'next' : 'next_disabled'
+    const nextStyleClass = curDateStr < nowDateStr ? 'next' : 'next_disabled';
     return (
-      <div>
+      <div className={className}>
         <CalendarLegend />
         <div className="mui-content">
           <div className="em-journal-title">
             <div className="current-month">
               <span className="pre" />
-              <span className="mid">...</span>
+              <span className="mid">{mid}</span>
               <span className={nextStyleClass} />
             </div>
-            <div className="year">2018</div>
+            <div className="year">{this.state.year}</div>
           </div>
           <div id="calendar">
             <div className="em-calendar-container">
@@ -132,7 +127,7 @@ class MobileCalendar extends Component {
                 <span>五</span>
                 <span>六</span>
               </div>
-              <div className="swiper-container">
+              <div className="swiper-container" id={id}>
                 <div className="swiper-wrapper">
                 </div>
               </div>

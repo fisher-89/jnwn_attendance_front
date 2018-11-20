@@ -3,6 +3,7 @@ import {
   Route, Switch, Redirect
 } from 'dva/router';
 import dynamic from 'dva/dynamic'
+import QueueAnim from 'rc-queue-anim';
 import App from '../../App'
 import { isAuthed, modelNotExisted } from '../../utils/util'
 import { connect } from 'dva';
@@ -33,22 +34,24 @@ class Authority extends Component {
         import('../Error/404'),
     });
     return (
-      <React.Fragment>
-        <App pathname={pathname}>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => (<Redirect to="/home" />)}
-            />
-            {
-              authorityRouters.map(({ path, models, authority, ...dynamics, }, index) => {
-                models.forEach((model) => {
-                  if (modelNotExisted(app, model)) {
-                    app.model(require(`../../models/${model}`).default);
-                  }
-                });
-                return (
+      <App pathname={pathname}>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (<Redirect to="/home" />)}
+        />
+
+        {
+          authorityRouters.map(({ path, models, authority, ...dynamics, }, index) => {
+            models.forEach((model) => {
+              if (modelNotExisted(app, model)) {
+                app.model(require(`../../models/${model}`).default);
+              }
+            });
+            return (
+              // <QueueAnim type={['left', 'right']}>
+              //   <div className="container" key={pathname}>
                   <Route
                     key={index}
                     path={path}
@@ -59,14 +62,15 @@ class Authority extends Component {
                       ...dynamics
                     })}
                   />
-                )
-              })
-            }
-            <Route component={error} />
-          </Switch>
-        </App>
-      </React.Fragment>
+              //   </div>
+              // </QueueAnim>
+            )
+          })
+        }
 
+        <Route component={error} />
+      </Switch>
+      </App>
     );
   }
 }

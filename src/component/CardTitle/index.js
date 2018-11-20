@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import './index.less'
 class CardTitle extends Component {
+
   render() {
     const { extra, style, title } = this.props;
     return (

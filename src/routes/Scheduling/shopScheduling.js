@@ -11,6 +11,8 @@ const morCount = 7;
 const nightCount = 8;
 const restCount = 1;
 const allworkCount = 6;
+const tableTitle = ['员工姓名', '早班', '晚班', '通过', '排班', '出勤(天)'];
+
 const data = [
   { date: '2018-11-01', edit: true },
   { date: '2018-11-02', edit: true },
@@ -47,11 +49,43 @@ const data = [
 
 ]
 class ShopScheduling extends Component {
+  state = {
+    curShop: [{ date: '2018-11-01', edit: true },
+    { date: '2018-11-02', edit: true },
+    { date: '2018-11-03', edit: true },
+    { date: '2018-11-04', edit: true },
+    { date: '2018-11-05', edit: false },
+    { date: '2018-11-06', edit: true },
+    { date: '2018-11-07', edit: true },
+    { date: '2018-11-08', edit: true },
+    { date: '2018-11-09', edit: true },
+    { date: '2018-11-10', edit: true },
+    { date: '2018-11-11', edit: false },
+    { date: '2018-11-12', edit: false },
+    { date: '2018-11-13', edit: false },
+    { date: '2018-11-14', edit: false },
+    { date: '2018-11-15', edit: false },
+    { date: '2018-11-16', edit: false },
+    { date: '2018-11-17', edit: false },
+    { date: '2018-11-18', edit: false },
+    { date: '2018-11-19', edit: false },
+    { date: '2018-11-20', edit: true },
+    { date: '2018-11-21', edit: true },
+    { date: '2018-11-22', edit: true },
+    { date: '2018-11-23', edit: true },
+    { date: '2018-11-24', edit: true },
+    { date: '2018-11-25', edit: true },
+    { date: '2018-11-26', edit: true },
+    { date: '2018-11-27', edit: true },
+    { date: '2018-11-28', edit: true },
+    { date: '2018-11-29', edit: true },
+    { date: '2018-11-30', edit: true },]
+  }
   open = (item) => {
     PageModal.open({
       title: '排班详情',
       alertTip: "这是一个测试弹框",
-      content: this.renderSchedual(item),
+      content: this.eidtSchedual(item),
       footer: false,
       closeAlert: function () {
         console.log("关闭了...");
@@ -60,9 +94,11 @@ class ShopScheduling extends Component {
   }
 
   dealCurrentStyle = (date) => {
+    // const { curShop } = this.state
+    const data = this.state.curShop
     const current = data.find(item => item.date === date);
     let borderTop = true;
-    let borderLeft = true
+    let borderLeft = true;
     if (current) {
       const isEidt = current.edit;
       const lastDate = moment(date).subtract(1, 'days').format('YYYY-MM-DD');
@@ -95,7 +131,7 @@ class ShopScheduling extends Component {
     this.open(item);
   }
 
-  renderSchedual = () => {
+  renderSchedual = (item) => {
     return (
       <div className="shop_scheduling_info">
         <div className="switch_date">
@@ -168,6 +204,46 @@ class ShopScheduling extends Component {
     )
   }
 
+  eidtSchedual = () => {
+    return (
+      <div className="shop_scheduling_info">
+        <div className="switch_date">
+          <span className="last"></span>
+          <div className="date_info">
+            <span>10.1</span><span>星期一</span>
+          </div>
+          <span className="next"></span>
+        </div>
+        <div className="staff_scheduling_info">
+          <div className="eidt_title">
+            {tableTitle.map(item => (
+              <div>{item}</div>
+            ))}
+          </div>
+          {[1, 2,4,5,6,7,8,9,11,12].map(item => (
+            <div className="name_item" key={item}>
+              <div>wanglili</div>
+              <div className="edit_morning">
+                <span className="active"></span>
+              </div>
+              <div className="edit_night">
+                <span></span>
+              </div>
+              <div className="edit_all">
+                <span></span>
+              </div>
+              <div className="edit_rest">
+                <span className="active"></span>
+              </div>
+              <div className="work_day">0</div>
+            </div>
+          ))}
+
+        </div>
+      </div>
+    )
+  }
+
   renderWork = (count, total) => {
     let temp = '';
     let html = ''
@@ -219,7 +295,12 @@ class ShopScheduling extends Component {
               title="店铺信息"
             />
           </SideBoth>
-          <Carousel infinite>
+          <Carousel
+            infinite
+            afterChange={() => {
+              this.setState({ curShop: data })
+            }}
+          >
             <div className="carousel_item">
               <ShopInfo style={{ width: '9.36rem', margin: '0 auto', height: '3.09333333rem' }} />
             </div>
@@ -234,6 +315,9 @@ class ShopScheduling extends Component {
           <WhiteSpace size="lg" />
           <SideBoth>
             <MobileCalendar
+              className="shop_scheduling"
+              type="1"
+              id="shop_scheduling"
               renderDayItem={this.renderDayItem}
               uniqueKey={this.props.location.pathname}
               onItemClick={this.onItemClick} />

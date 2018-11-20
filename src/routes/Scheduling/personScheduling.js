@@ -1,17 +1,18 @@
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { WhiteSpace, Carousel } from 'antd-mobile'
 import { PageContainer, PageFooter, PageContent, SideBoth } from '../../component/PageStructure'
 import {
   CardTitle, FooterNav, PageModal, ShopInfo, Btn, MobileCalendar
 } from '../../component';
 import './index.less'
-class PersonScheduling extends Component {
+class PersonScheduling extends PureComponent {
+ 
   state = {
     files: [],
     text: '',
     inlinetext: '',
-    inputvalue: ''
+    inputvalue: '',
   }
 
   open = () => {
@@ -28,7 +29,7 @@ class PersonScheduling extends Component {
   handleClick = () => {
     this.props.history.push('/shop_scheduling')
   }
-  
+
   handleOnChange = (key, value) => {
     this.setState({
       [key]: value
@@ -36,10 +37,17 @@ class PersonScheduling extends Component {
   }
 
   render() {
+    // return (
+    //   <MobileCalendar
+    //           className="person_scheduling"
+    //           id="person_scheduling"
+    //           type="0"
+    //         />
+    // );
     return (
       <PageContainer>
         <PageContent style={{ padding: 0 }}>
-          <SideBoth >
+          <SideBoth>
             <CardTitle
               style={{ marginBottom: '0.2666667rem' }}
               title="店铺信息"
@@ -60,13 +68,17 @@ class PersonScheduling extends Component {
           <WhiteSpace size="lg" />
           <WhiteSpace size="lg" />
           <SideBoth>
-            <MobileCalendar uniqueKey={this.props.location.pathname} />
+            <MobileCalendar
+              className="person_scheduling"
+              id="person_scheduling"
+              type="0"
+            />
             <div className="attendence">
-                <div>
+              <div>
                 出勤：10天
                （<span>早班：5天</span><span>晚班：5天</span><span>通班：5天</span>）
                 </div>
-                <div>排休：2天</div>
+              <div>排休：2天</div>
             </div>
           </SideBoth>
         </PageContent>

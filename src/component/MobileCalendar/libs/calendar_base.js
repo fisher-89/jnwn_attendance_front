@@ -4,7 +4,7 @@
 
 import Mustache from 'mustache'
 import Swiper from 'swiper'
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import { findAppointParent } from '../../../utils/util.js'
 
 import legalHolidays from './datas'
@@ -559,6 +559,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         html += Mustache.render(templ, outputs[i]);
                     }
                     const swipercon = document.querySelector(".swiper-wrapper");
+                    // const swipercon = document.querySelector(self.options.swiper);
                     // ReactDOM.render()
                     if (swipercon) {
                         swipercon.innerHTML = html;
@@ -918,8 +919,11 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             var currMonthIndex = parseInt(self.curMonth);
             var currDayIndex = self.curDay;
             // 创建swiper 组件对象
-            self.mySwiper = new Swiper('.swiper-container', {
+            // self.mySwiper = new Swiper('.swiper-container', {
+            self.mySwiper = new Swiper(self.options.swiper, {
                 loop: false,
+                observeParents: true,
+                observer: true,
                 initialSlide: 1,
                 speed: 150,
                 navigation: {
@@ -931,10 +935,9 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         // console.log(e.target.innerHTML);
                         // 日期灰色部分不启用
                         var _this = findAppointParent(e.target, 'em-calendar-item');
-                        console.log(_this)
                         // 日期输出值
                         var dateStr = _this.getAttribute('date');
-                        self.date = dateStr;
+                        self.selectdate = dateStr;
                         // 农历输出值
                         if (_this.querySelector('.lunar')) {
                             var lunarStr = _this.querySelector('.lunar').innerText.trim();
@@ -943,7 +946,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         }
                         // 可点击区域
                         if (!_this.classList.contains('isforbid0')) {
-                            console.log('isforbid0', _this.getAttribute("date"))
                             if (_this.getAttribute("date")) {
                                 _this.classList.add('em-calendar-active');
                                 self.sibling(_this, function (el) {
@@ -951,7 +953,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                                 });
                             }
                         } else {
-                            console.log('isforbid')
 
                             // 不可点击区域
                             if (_this.classList.contains('tipprev')) {
@@ -1006,12 +1007,12 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             }
             //alert("向后回调"+">>>>>>" + currYearIndex + "-" + currMonthIndex + "-" + self.nowDay);
             //回调
-
             swipeCallback && swipeCallback({
                 year: currYearIndex,
                 month: self.tom(currMonthIndex),
                 day: currDayIndex,
-                date: self.date,
+                // date: self.date,
+                date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
                 dayCount: self.dayCount
             });
 
@@ -1047,6 +1048,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 }
                 swiper.appendSlide(html);
             });
+
             // 如果往后滑动时后一个月非当前月，重新渲染1号样式
             // if (self.tom(currMonthIndex) !== self.curMonth) {
             //     var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
@@ -1055,7 +1057,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             //     }
             //     document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
             // }
-            self.mySwiper.on('slideNextTransitionStart', function () {
+            swiper.on('slideNextTransitionStart', function () {
                 const swiper = self.mySwiper;
                 count++;
                 if (count == "1") {
@@ -1130,7 +1132,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 //     document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
                 // }
             })
-            self.mySwiper.on('slidePrevTransitionStart', function () {
+            swiper.on('slidePrevTransitionStart', function () {
                 const swiper = self.mySwiper
                 count--;
                 if (count == "1") {
@@ -1200,7 +1202,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 //         chooseDom.classList.remove('em-calendar-active')
                 //     }
                 //     document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
-
                 // }
             }
             )
@@ -1222,7 +1223,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
          * @param {Object} dateStr 点击后的日期 ,例如：“2018-08-20”
          */
         addActiveStyleFordate: function (dateStr) {
-            console.log('addActiveStyleFordate', dateStr)
             var self = this;
             // 给前后月的点击日期加选中标记
             var clickactives = document.querySelector('.swiper-slide-active').querySelectorAll('.em-calendar-item');

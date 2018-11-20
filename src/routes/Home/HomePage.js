@@ -4,9 +4,8 @@ import { WhiteSpace, Button } from 'antd-mobile'
 import { PageContainer, PageHeader, PageFooter, PageContent } from '../../component/PageStructure'
 import {
   StatusLabel, ShopLevel, Card, Btn, CheckboxBtn, CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
-  TextInput,  PersonIcon, FooterNav, GridNav, PageModal, ShopInfo
+  TextInput, PersonIcon, FooterNav, GridNav, PageModal, ShopInfo, MobileCalendar
 } from '../../component';
-import MobileCalendar from '../TestCalendar'
 import '../index.less'
 class PageIndex extends Component {
   state = {
@@ -42,9 +41,9 @@ class PageIndex extends Component {
           shouye
         </PageHeader>
         <PageContent>
-        <WhiteSpace size="lg" />
-          <MobileCalendar key={this.props.location.pathname} />
           <WhiteSpace size="lg" />
+          <WhiteSpace size="lg" />
+         
           <ShopInfo />
           <WhiteSpace size="lg" />
           <Button onClick={this.open} type="paimary">点击modal</Button>
