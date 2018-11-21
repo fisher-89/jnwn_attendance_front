@@ -14,7 +14,8 @@
 
 import dva from 'dva';
 import './index.css';
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
+import 'moment/locale/zh-cn' 
  
 // 1. Initialize
 const app = dva({

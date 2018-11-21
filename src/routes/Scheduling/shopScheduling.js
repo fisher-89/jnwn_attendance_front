@@ -3,7 +3,8 @@ import moment from 'moment'
 import { WhiteSpace, Carousel } from 'antd-mobile'
 import { PageContainer, PageFooter, PageContent, SideBoth } from '../../component/PageStructure'
 import {
-  CardTitle, SchedulingInfo, ShopInfo, Btn, MobileCalendar, PageModal, AttendenceType, PersonIcon
+  CardTitle, SchedulingInfo, ShopInfo, Btn, MobileCalendar, PageModal, AttendenceType,
+  PersonIcon, SwitchDate
 } from '../../component';
 import '../../component/MobileCalendar/css/style_1.less'
 import './index.less'
@@ -50,6 +51,7 @@ const data = [
 ]
 class ShopScheduling extends Component {
   state = {
+
     curShop: [{ date: '2018-11-01', edit: true },
     { date: '2018-11-02', edit: true },
     { date: '2018-11-03', edit: true },
@@ -94,7 +96,6 @@ class ShopScheduling extends Component {
   }
 
   dealCurrentStyle = (date) => {
-    // const { curShop } = this.state
     const data = this.state.curShop
     const current = data.find(item => item.date === date);
     let borderTop = true;
@@ -131,16 +132,14 @@ class ShopScheduling extends Component {
     this.open(item);
   }
 
+  swicthDate = (direction) => {
+    console.log(direction)
+  }
+
   renderSchedual = (item) => {
     return (
       <div className="shop_scheduling_info">
-        <div className="switch_date">
-          <span className="last"></span>
-          <div className="date_info">
-            <span>10.1</span><span>星期一</span>
-          </div>
-          <span className="next"></span>
-        </div>
+        <SwitchDate />
         <div className="staff_scheduling_info">
           <AttendenceType type="morning" />
           <div className="staff_name_container">
@@ -207,30 +206,24 @@ class ShopScheduling extends Component {
   eidtSchedual = () => {
     return (
       <div className="shop_scheduling_info">
-        <div className="switch_date">
-          <span className="last"></span>
-          <div className="date_info">
-            <span>10.1</span><span>星期一</span>
-          </div>
-          <span className="next"></span>
-        </div>
+        <SwitchDate onClick={this.swicthDate} date="2018-11-01" />
         <div className="staff_scheduling_info">
           <div className="eidt_title">
             {tableTitle.map(item => (
-              <div>{item}</div>
+              <div key={item}>{item}</div>
             ))}
           </div>
-          {[1, 2,4,5,6,7,8,9,11,12].map(item => (
+          {[1, 2, 4, 5, 6, 7, 8, 9, 11, 12].map(item => (
             <div className="name_item" key={item}>
               <div>wanglili</div>
-              <div className="edit_morning">
+              <div className="edit_morning ">
                 <span className="active"></span>
               </div>
-              <div className="edit_night">
-                <span></span>
+              <div className="edit_night readonly">
+                <span className="active"></span>
               </div>
               <div className="edit_all">
-                <span></span>
+                <span className="active"></span>
               </div>
               <div className="edit_rest">
                 <span className="active"></span>
@@ -273,7 +266,7 @@ class ShopScheduling extends Component {
     const allworkSpan = this.renderWork(allworkCount, 8);
     const restSpan = this.renderWork(restCount, 8);
     template = `<div class='em-calendar-item  isforbid${isforbid} tip${tip || ''} edit${edit}' date=${date} 
-    style='${todayStyle}${curentStyle}'>\
+    style='${curentStyle}${todayStyle}'>\
     <div class="day">${day}</div>\
         <div class="morwork">\
         ${morSpan}\

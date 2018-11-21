@@ -109,23 +109,29 @@
       border: 1px solid @text-assist-sub-color;
       border-radius: 50%;
     }
+    &.readonly {
+      span.active{
+        background: url('/icons/disable_circle.png') no-repeat center;
+        background-size: 10px 10px;
+      }
+    }
   }
-  .work_day{
-    color:@text-assist-sub-color;
+  .work_day {
+    color: @text-assist-sub-color;
   }
-  .edit_morning span.active{
+  .edit_morning span.active {
     background: url('/icons/morning.png') no-repeat center;
     background-size: 10px 10px;
   }
-  .edit_all span.active{
+  .edit_all span.active {
     background: url('/icons/all_shift.png') no-repeat center;
     background-size: 10px 10px;
   }
-  .edit_night span.active{
+  .edit_night span.active {
     background: url('/icons/night.png') no-repeat center;
     background-size: 10px 10px;
   }
-  .edit_rest span.active{
+  .edit_rest span.active {
     background: url('/icons/rest.png') no-repeat center;
     background-size: 10px 10px;
   }
