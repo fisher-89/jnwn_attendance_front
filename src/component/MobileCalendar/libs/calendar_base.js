@@ -8,7 +8,6 @@ import Swiper from 'swiper'
 import { findAppointParent } from '../../../utils/util.js'
 
 import legalHolidays from './datas'
-import { func } from 'prop-types';
 window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
 
     /**
@@ -739,6 +738,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 console.log("*********日历格式********:\n" + JSON.stringify(tmpInfo) + "\n");
             }
             //this._render(fileInfo, tmpInfo, dateObj.activeSlideNode);
+            console.log('dateObj',dateObj)
             this._render({
                 fileInfo: fileInfo,
                 tmpInfo: tmpInfo,
@@ -784,7 +784,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     if (typeof (callback) == "function") {
                         callback && callback(html, dataObj.tmpInfo);
                     }
-
                     return;
                 }, self);
             }, 100);
@@ -793,6 +792,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
          * 获取主题模板
          */
         getThemeHtml: function (dataObj) {
+            console.log('getThemeHtml')
             var self = this;
             // 模板集合
             var html = "";
@@ -831,7 +831,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     html += Mustache.render(templData, value);
                 }
             }
-
             return html;
         },
         /**
@@ -929,6 +928,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 navigation: {
                     nextEl: self.options.next,
                     prevEl: self.options.pre,
+                    disabledClass:self.options.disabledClass
                 },
                 on: {
                     click: function (e, swiper) {
@@ -978,7 +978,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                                 month: self.tom(currMonthIndex),
                                 day: currDayIndex,
                                 date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
-                                dayCount: self.dayCount
+                                dayCount: self.dayCount,
+                                checkedDate: dateStr
                             }
                         );
                     },
@@ -1013,7 +1014,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 day: currDayIndex,
                 // date: self.date,
                 date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
-                dayCount: self.dayCount
+                dayCount: self.dayCount,
+                checkedDate: self.selectdate
             });
 
             /**
@@ -1044,6 +1046,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 var templ = self.SLIDER_ITEM_CONTAINER;
                 var html = "";
                 for (var i = 0; i < outputs.length; i++) {
+                    console.log(outputs[i])
                     html += Mustache.render(templ, outputs[i]);
                 }
                 swiper.appendSlide(html);
@@ -1057,7 +1060,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             //     }
             //     document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
             // }
-            swiper.on('slideNextTransitionStart', function () {
+            swiper.on('slideNextTransitionStart', function (a,b,c) {
                 const swiper = self.mySwiper;
                 count++;
                 if (count == "1") {
@@ -1086,9 +1089,9 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     year: currYearIndex,
                     month: self.tom(currMonthIndex),
                     day: currDayIndex,
-                    // date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
-                    date: self.date,
-                    dayCount: self.dayCount
+                    date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
+                    dayCount: self.dayCount,
+                    checkedDate: self.selectdate
                 });
 
                 /**
@@ -1159,9 +1162,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     year: currYearIndex,
                     month: self.tom(currMonthIndex),
                     day: currDayIndex,
-                    // date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
-                    date: self.date,
-
+                    date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
+                    checkedDate: self.selectdate,
                     dayCount: self.dayCount
                 });
 
@@ -1225,7 +1227,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         addActiveStyleFordate: function (dateStr) {
             var self = this;
             // 给前后月的点击日期加选中标记
-            var clickactives = document.querySelector('.swiper-slide-active').querySelectorAll('.em-calendar-item');
+            var clickactives = document.querySelector(`${self.options.swiper} .swiper-slide-active`).querySelectorAll('.em-calendar-item');
             for (var i = 0; i < clickactives.length; i++) {
                 if (clickactives[i].getAttribute("date") == dateStr) {
                     clickactives[i].classList.add('em-calendar-active');
@@ -1266,7 +1268,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             self.destroySwiper();
             // 创建
             self.initEntry(options);
-
         },
         /**
          * 销毁swiper

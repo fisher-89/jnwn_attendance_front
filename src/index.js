@@ -13,9 +13,13 @@
 
 
 import dva from 'dva';
-import './index.css';
+import './utils/reset.css'
+
 import createHistory from 'history/createBrowserHistory';
+
+import './index.css';
 import 'moment/locale/zh-cn' 
+import './utils/adaptation'
  
 // 1. Initialize
 const app = dva({

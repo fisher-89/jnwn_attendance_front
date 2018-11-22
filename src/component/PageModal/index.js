@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { is, fromJS } from 'immutable';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Btn } from '../index'
@@ -18,17 +17,28 @@ class Alert extends Component {
     ...defaultState
   };
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.alertStatus !== this.props.alertStatus) {
+      this.setState({
+        alertStatus: newProps.alertStatus
+      })
+    }
+  }
+
   // css动画组件设置为目标组件
   FirstChild = props => {
     const childrenArray = React.Children.toArray(props.children);
     return childrenArray[0] || null;
   }
+  
   // 关闭弹框
   confirm = () => {
+    const { closeAlert } = this.props;
     this.setState({
       alertStatus: false
+    }, () => {
+      closeAlert(false)
     })
-    this.state.closeAlert();
   }
 
   open = (options) => {
@@ -41,9 +51,11 @@ class Alert extends Component {
   }
 
   close = () => {
-    this.state.closeAlert();
+    const { closeAlert } = this.props;
     this.setState({
-      ...defaultState
+      alertStatus: false
+    }, () => {
+      closeAlert(false);
     })
   }
 
@@ -52,34 +64,37 @@ class Alert extends Component {
   }
 
   render() {
+    const { content, title } = this.props;
     return (
-      <ReactCSSTransitionGroup
-        component={this.FirstChild}
-        transitionName='hide'
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}>
-        <div className="alert-con"
-          style={this.state.alertStatus ? null : { display: 'none' }}
-          onClick={this.close}
-        >
-          <div className="alert-context" onClick={(e) => e.stopPropagation()}>
-            <div className="comfirm" >
-              {this.state.title}
-              <span className="close" onClick={this.close} />
-            </div>
-            <div className="alert-content-detail" >
-              {this.state.content}
-            </div>
-            {this.state.footer && <div className="alert-footer">
-              <Btn size="l" fill
-                style={{ color: 'rgb(53, 48, 49)' }}
-                handleClick={this.confirm}
-              >确定</Btn>
-            </div>}
+      <div>
+        <ReactCSSTransitionGroup
+          component={this.FirstChild}
+          transitionName='hide'
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}>
+          <div className="alert-con"
+            style={this.state.alertStatus ? null : { display: 'none' }}
+            onClick={this.close}
+          >
+            <div className="alert-context" onClick={(e) => e.stopPropagation()}>
+              <div className="comfirm" >
+                {title}
+                <span className="close" onClick={this.close} />
+              </div>
+              <div className="alert-content-detail" >
+                {content}
+              </div>
+              {this.state.footer && <div className="alert-footer">
+                <Btn size="l" fill
+                  style={{ color: 'rgb(53, 48, 49)' }}
+                  handleClick={this.confirm}
+                >确定</Btn>
+              </div>}
 
+            </div>
           </div>
-        </div>
-      </ReactCSSTransitionGroup>
+        </ReactCSSTransitionGroup>
+      </div>
     );
   }
 }
@@ -88,10 +103,10 @@ let div = document.createElement('div');
 let props = {
 
 };
-document.body.appendChild(div);
+// document.body.appendChild(div);
 
-let Box = ReactDOM.render(React.createElement(
-  Alert,
-  props
-), div);
-export default Box
+// let Box = ReactDOM.render(React.createElement(
+//   Alert,
+//   props
+// ), div);
+export default Alert

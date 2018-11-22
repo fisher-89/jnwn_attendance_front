@@ -1,7 +1,6 @@
 import CircularJSON from 'circular-json';
 import { isLogin, isAuthed } from '../utils/util'
 import * as common from '../services/common'
-import { FileUpLoad } from '../component';
 export default {
   namespace: 'app',
   state: {

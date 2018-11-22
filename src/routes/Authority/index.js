@@ -3,7 +3,6 @@ import {
   Route, Switch, Redirect
 } from 'dva/router';
 import dynamic from 'dva/dynamic'
-import QueueAnim from 'rc-queue-anim';
 import App from '../../App'
 import { isAuthed, modelNotExisted } from '../../utils/util'
 import { connect } from 'dva';
@@ -34,14 +33,12 @@ class Authority extends Component {
         import('../Error/404'),
     });
     return (
-      <App pathname={pathname}>
       <Switch>
         <Route
           exact
           path="/"
           render={() => (<Redirect to="/home" />)}
         />
-
         {
           authorityRouters.map(({ path, models, authority, ...dynamics, }, index) => {
             models.forEach((model) => {
@@ -70,7 +67,6 @@ class Authority extends Component {
 
         <Route component={error} />
       </Switch>
-      </App>
     );
   }
 }

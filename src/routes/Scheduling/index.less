@@ -81,6 +81,11 @@
   }
 }
 
+.shop_manager {
+  background: url('/icons/shop_manager.png') no-repeat left center;
+  background-size: 16px 16px;
+}
+
 .name_item {
   display: flex;
   align-items: center;
@@ -89,12 +94,15 @@
     width: 71px;
     height: 44px;
     line-height: 44px;
-    text-align: center;
+    padding-left: 21px;
     .fontStyle(@text-main-color,
     14px)
   }
   >div+div {
     width: 50px;
+    text-align: center;
+    padding-left: 0;
+
   }
   .edit_morning,
   .edit_all,
@@ -110,7 +118,7 @@
       border-radius: 50%;
     }
     &.readonly {
-      span.active{
+      span.active {
         background: url('/icons/disable_circle.png') no-repeat center;
         background-size: 10px 10px;
       }

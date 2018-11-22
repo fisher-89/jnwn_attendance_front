@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import moment from 'moment'
+
 import { WhiteSpace, Carousel } from 'antd-mobile'
 import { PageContainer, PageFooter, PageContent, SideBoth } from '../../component/PageStructure'
 import {
   CardTitle, SchedulingInfo, ShopInfo, Btn, MobileCalendar, PageModal, AttendenceType,
-  PersonIcon, SwitchDate
+  PersonIcon, SwitchDate, Spin
 } from '../../component';
 import '../../component/MobileCalendar/css/style_1.less'
 import './index.less'
+import { connect } from 'dva';
 const morCount = 7;
 const nightCount = 8;
 const restCount = 1;
@@ -49,50 +51,326 @@ const data = [
 
 
 ]
-class ShopScheduling extends Component {
-  state = {
 
-    curShop: [{ date: '2018-11-01', edit: true },
-    { date: '2018-11-02', edit: true },
-    { date: '2018-11-03', edit: true },
-    { date: '2018-11-04', edit: true },
-    { date: '2018-11-05', edit: false },
-    { date: '2018-11-06', edit: true },
-    { date: '2018-11-07', edit: true },
-    { date: '2018-11-08', edit: true },
-    { date: '2018-11-09', edit: true },
-    { date: '2018-11-10', edit: true },
-    { date: '2018-11-11', edit: false },
-    { date: '2018-11-12', edit: false },
-    { date: '2018-11-13', edit: false },
-    { date: '2018-11-14', edit: false },
-    { date: '2018-11-15', edit: false },
-    { date: '2018-11-16', edit: false },
-    { date: '2018-11-17', edit: false },
-    { date: '2018-11-18', edit: false },
-    { date: '2018-11-19', edit: false },
-    { date: '2018-11-20', edit: true },
-    { date: '2018-11-21', edit: true },
-    { date: '2018-11-22', edit: true },
-    { date: '2018-11-23', edit: true },
-    { date: '2018-11-24', edit: true },
-    { date: '2018-11-25', edit: true },
-    { date: '2018-11-26', edit: true },
-    { date: '2018-11-27', edit: true },
-    { date: '2018-11-28', edit: true },
-    { date: '2018-11-29', edit: true },
-    { date: '2018-11-30', edit: true },]
+@connect()
+class ShopScheduling extends Component {
+  constructor(props) {
+    super(props);
+    const { match: { params: { shopSn } } } = props;
+    this.state = {
+      shopSn,
+      alertStatus: false,
+      checkedDate: '2018-10-01',
+      details: {
+        '2018-11-01': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-02': [
+          {
+            "staff_sn": 110100,
+            "staff_name": "张",
+            "date": "2018-11-10",
+            "duty_id": 0,
+            "shift_status_id": 2
+          },
+        ],
+        '2018-11-03': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-04': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-05': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-06': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-07': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-08': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-09': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-10': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-11': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-12': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-13': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-14': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-15': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-16': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-17': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-18': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-19': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-20': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-21': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-22': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-23': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-24': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-25': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-26': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-27': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-28': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-29': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+        '2018-11-30': [
+          {
+            "staff_sn": 110101,
+            "staff_name": "张博涵1",
+            "date": "2018-11-10",
+            "duty_id": 1,
+            "shift_status_id": 0
+          },
+        ],
+      },
+
+      curShop: [{ date: '2018-11-01', edit: true },
+      { date: '2018-11-02', edit: true },
+      { date: '2018-11-03', edit: true },
+      { date: '2018-11-04', edit: true },
+      { date: '2018-11-05', edit: false },
+      { date: '2018-11-06', edit: true },
+      { date: '2018-11-07', edit: true },
+      { date: '2018-11-08', edit: true },
+      { date: '2018-11-09', edit: true },
+      { date: '2018-11-10', edit: true },
+      { date: '2018-11-11', edit: false },
+      { date: '2018-11-12', edit: false },
+      { date: '2018-11-13', edit: false },
+      { date: '2018-11-14', edit: false },
+      { date: '2018-11-15', edit: false },
+      { date: '2018-11-16', edit: false },
+      { date: '2018-11-17', edit: false },
+      { date: '2018-11-18', edit: false },
+      { date: '2018-11-19', edit: false },
+      { date: '2018-11-20', edit: true },
+      { date: '2018-11-21', edit: true },
+      { date: '2018-11-22', edit: true },
+      { date: '2018-11-23', edit: true },
+      { date: '2018-11-24', edit: true },
+      { date: '2018-11-25', edit: true },
+      { date: '2018-11-26', edit: true },
+      { date: '2018-11-27', edit: true },
+      { date: '2018-11-28', edit: true },
+      { date: '2018-11-29', edit: true },
+      { date: '2018-11-30', edit: true },]
+    }
   }
+
   open = (item) => {
-    PageModal.open({
-      title: '排班详情',
-      alertTip: "这是一个测试弹框",
-      content: this.eidtSchedual(item),
-      footer: false,
-      closeAlert: function () {
-        console.log("关闭了...");
-      }
-    });
+    this.setState({
+      alertStatus: true
+    })
   }
 
   dealCurrentStyle = (date) => {
@@ -129,17 +407,46 @@ class ShopScheduling extends Component {
   }
 
   onItemClick = (item) => {
-    this.open(item);
+    const { selectData = [] } = this.state
+    this.setState({
+      checkedDateInfo: item,
+      checkedDate: item.checkedDate,
+      selectData: [...selectData, { date: item.checkedDate }]
+    }, () => {
+      this.open(item);
+    })
   }
 
-  swicthDate = (direction) => {
-    console.log(direction)
+  swicthDate = (date) => {
+    this.setState({
+      checkedDate: date
+    })
+  }
+
+  swicthShiftStatus = (item, status) => {
+    const { details, checkedDate } = this.state;
+    const staffSchedule = details[checkedDate]
+    const newStaffSchedule = staffSchedule.map(staff => {
+      const newStaff = { ...staff }
+      if (staff.staff_sn === item.staff_sn) {
+        newStaff.shift_status_id = status;
+      }
+      return newStaff
+    })
+    this.setState({
+      details: {
+        ...details,
+        [checkedDate]: newStaffSchedule
+      }
+    }, () => {
+    })
   }
 
   renderSchedual = (item) => {
+    const { checkedDate } = this.state;
     return (
       <div className="shop_scheduling_info">
-        <SwitchDate />
+        <SwitchDate onClick={this.swicthDate} date={checkedDate} />
         <div className="staff_scheduling_info">
           <AttendenceType type="morning" />
           <div className="staff_name_container">
@@ -203,56 +510,87 @@ class ShopScheduling extends Component {
     )
   }
 
-  eidtSchedual = () => {
+  editSchedual = () => {
+    const { checkedDate, details } = this.state;
+    const staffSchedule = details[checkedDate] || [];
     return (
       <div className="shop_scheduling_info">
-        <SwitchDate onClick={this.swicthDate} date="2018-11-01" />
+        <SwitchDate
+          onChange={this.swicthDate}
+          date={checkedDate}
+        />
         <div className="staff_scheduling_info">
           <div className="eidt_title">
             {tableTitle.map(item => (
               <div key={item}>{item}</div>
             ))}
           </div>
-          {[1, 2, 4, 5, 6, 7, 8, 9, 11, 12].map(item => (
-            <div className="name_item" key={item}>
-              <div>wanglili</div>
-              <div className="edit_morning ">
-                <span className="active"></span>
+          {staffSchedule.map(item => {
+            const staffClass = item.duty_id === 1 ? 'shop_manager' : '';
+            const days = item.shift_status_id !== 3 ? 1 : 0
+            return (
+              <div className="name_item" key={item.staff_sn}>
+                <div className={staffClass}>{item.staff_name}</div>
+                <div className="edit_morning " onClick={() => this.swicthShiftStatus(item, 0)}>
+                  <span
+                    className={item.shift_status_id === 0 ? 'active' : ''}>
+                  </span>
+                </div>
+                <div className="edit_night" onClick={() => this.swicthShiftStatus(item, 1)}>
+                  <span
+                    className={item.shift_status_id === 1 ? 'active' : ''}>
+                  </span>
+                </div>
+                <div className="edit_all" onClick={() => this.swicthShiftStatus(item, 2)}>
+                  <span
+                    className={item.shift_status_id === 2 ? 'active' : ''}>
+                  </span>
+                </div>
+                <div className="edit_rest" onClick={() => this.swicthShiftStatus(item, 3)}>
+                  <span
+                    className={item.shift_status_id === 3 ? 'active' : ''}>
+                  </span>
+                </div>
+                <div className="work_day">{days}</div>
               </div>
-              <div className="edit_night readonly">
-                <span className="active"></span>
-              </div>
-              <div className="edit_all">
-                <span className="active"></span>
-              </div>
-              <div className="edit_rest">
-                <span className="active"></span>
-              </div>
-              <div className="work_day">0</div>
-            </div>
-          ))}
-
+            )
+          }
+          )}
         </div>
       </div>
     )
   }
 
-  renderWork = (count, total) => {
+  submit = () => {
+    const { details, shopSn } = this.state;
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: 'schedule/editSchedule',
+      payload: {
+        staff_sn: shopSn,
+        params: {
+          "ym":
+            details
+        }
+      }
+
+    })
+  }
+
+  renderWork = (count) => {
     let temp = '';
     let html = ''
-    for (let i = 1; i <= total; i++) {
-      if (i <= count) {
-        temp = `<span class='work'></span>`;
-      }
-      else {
-        temp = '<span></span>';
-      }
+    for (let i = 1; i <= count; i++) {
+      temp = `<span class='work'></span>`;
       html = `${html}${temp}`
     }
     return html;
   }
 
   renderDayItem = (value, curr) => {
+    const { selectData = [] } = this.state;
+    const selectedDate = selectData.map(item => item.date)
     const nowDate = moment().format('YYYY-MM-DD');
     let template = '';
     const { isforbid, date, tip, day } = value;
@@ -261,12 +599,13 @@ class ShopScheduling extends Component {
     const currentData = this.dealCurrentStyle(date);
     const { edit, borderTop, borderLeft } = currentData;
     const curentStyle = `${!borderTop ? 'border-top-color:transparent;' : ''}${!borderLeft ? 'border-left-color:transparent;' : ''}`
+    const activeStyle = `${selectedDate.indexOf(date) !== -1 ? 'background:rgba(253, 208, 0, 0.1);' : ''}`;
     const morSpan = this.renderWork(morCount, 8);
     const nightSpan = this.renderWork(nightCount, 8);
     const allworkSpan = this.renderWork(allworkCount, 8);
     const restSpan = this.renderWork(restCount, 8);
     template = `<div class='em-calendar-item  isforbid${isforbid} tip${tip || ''} edit${edit}' date=${date} 
-    style='${curentStyle}${todayStyle}'>\
+    style='${curentStyle}${todayStyle}${activeStyle}'>\
     <div class="day">${day}</div>\
         <div class="morwork">\
         ${morSpan}\
@@ -279,56 +618,77 @@ class ShopScheduling extends Component {
   }
 
   render() {
+    const { alertStatus } = this.state;
     return (
-      <PageContainer>
-        <PageContent style={{ padding: 0 }}>
-          <SideBoth >
-            <CardTitle
-              style={{ marginBottom: '0.2666667rem' }}
-              title="店铺信息"
-            />
-          </SideBoth>
-          <Carousel
-            infinite
-            afterChange={() => {
-              this.setState({ curShop: data })
-            }}
-          >
-            <div className="carousel_item">
-              <ShopInfo style={{ width: '9.36rem', margin: '0 auto', height: '3.09333333rem' }} />
-            </div>
-            <div className="carousel_item">
-              <ShopInfo style={{ width: '9.36rem', margin: '0 auto', height: '3.09333333rem' }} />
-            </div>
-            <div className="carousel_item">
-              <ShopInfo style={{ width: '9.36rem', margin: '0 auto', height: '3.09333333rem' }} />
-            </div>
-          </Carousel>
-          <WhiteSpace size="lg" />
-          <WhiteSpace size="lg" />
-          <SideBoth>
-            <MobileCalendar
-              className="shop_scheduling"
-              type="1"
-              id="shop_scheduling"
-              renderDayItem={this.renderDayItem}
-              uniqueKey={this.props.location.pathname}
-              onItemClick={this.onItemClick} />
+      <Spin>
+        <PageContainer>
+          <PageModal
+            title='排班详情'
+            alertTip="这是一个测试弹框"
+            alertStatus={alertStatus}
+            content={this.editSchedual()}
+            closeAlert={
+              (visible) => {
+                this.setState({ alertStatus: visible })
+              }
+            }
+          />
+          <PageContent style={{ padding: 0 }}>
+            <SideBoth >
+              <CardTitle
+                style={{ marginBottom: '0.2666667rem' }}
+                title="店铺信息"
+              />
+            </SideBoth>
+            <Carousel
+              infinite
+              afterChange={(i) => {
+                this.setState({ curShop: data, shopSn: i })
+              }}
+            >
+              <div className="carousel_item">
+                <ShopInfo style={{ width: '9.36rem', margin: '0 auto', height: '3.09333333rem' }} />
+              </div>
+              <div className="carousel_item">
+                <ShopInfo style={{ width: '9.36rem', margin: '0 auto', height: '3.09333333rem' }} />
+              </div>
+              <div className="carousel_item">
+                <ShopInfo style={{ width: '9.36rem', margin: '0 auto', height: '3.09333333rem' }} />
+              </div>
+            </Carousel>
             <WhiteSpace size="lg" />
-            <SchedulingInfo />
-          </SideBoth>
-        </PageContent>
-        <PageFooter>
-          <div className="footer_btn">
-            <div>
-              <Btn type="default" size="l">取消</Btn>
+            <WhiteSpace size="lg" />
+            <SideBoth>
+              <MobileCalendar
+                className="shop_scheduling"
+                type="1"
+                id={`shop_scheduling`}
+                renderDayItem={this.renderDayItem}
+                uniqueKey={this.props.location.pathname}
+                onItemClick={this.onItemClick}
+                selectData={this.state.selectData}
+                checkedDate={this.state.checkedDateInfo}
+              />
+              <WhiteSpace size="lg" />
+              <SchedulingInfo />
+            </SideBoth>
+          </PageContent>
+          <PageFooter>
+            <div className="footer_btn">
+              <div>
+                <Btn type="default" size="l">取消</Btn>
+              </div>
+              <div>
+                <Btn type="primary"
+                  fill size="l"
+                  style={{ color: 'rgb(53,48,49)' }}
+                  handleClick={this.submit}
+                >提交</Btn>
+              </div>
             </div>
-            <div>
-              <Btn type="primary" fill size="l" style={{ color: 'rgb(53,48,49)' }}>提交</Btn>
-            </div>
-          </div>
-        </PageFooter>
-      </PageContainer >
+          </PageFooter>
+        </PageContainer >
+      </Spin>
 
     )
   }

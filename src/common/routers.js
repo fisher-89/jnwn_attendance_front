@@ -4,7 +4,7 @@ const menuGlobal = [
     pid: '0',
     name: 'personscheduling',
     icon: 'user',
-    path: '/person_scheduling',
+    path: '/person_scheduling/:staffSn',
     models: [], //models可多个
     component: () => import('../routes/Scheduling/personScheduling.js'),
   },
@@ -13,7 +13,7 @@ const menuGlobal = [
     pid: '0',
     name: 'shopscheduling',
     icon: 'user',
-    path: '/shop_scheduling',
+    path: '/shop_scheduling/:shopSn',
     models: [], //models可多个
     component: () => import('../routes/Scheduling/shopScheduling.js'),
   },
@@ -25,15 +25,6 @@ const menuGlobal = [
     path: '/home',
     models: [], //models可多个
     component: () => import('../routes/Home/HomePage'),
-  },
-  {
-    id: 'bbb',
-    pid: '0',
-    name: 'bbb页',
-    icon: 'user',
-    path: '/test',
-    models: [], //models可多个
-    component: () => import('../routes/test'),
   },
   {
     id: 'test',

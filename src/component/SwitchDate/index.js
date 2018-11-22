@@ -14,7 +14,7 @@ class SwitchDate extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { date } = newProps
+    const { date } = newProps;
     if (date !== this.props.date) {
       const format = this.formatCurrentDate(date);
       this.setState({
@@ -33,6 +33,7 @@ class SwitchDate extends Component {
 
   handleSwicthDate = (direction) => {
     const { date } = this.state;
+    const { onChange } = this.props;
     let currentDate = moment(date).add(1, 'days').format('YYYY-MM-DD');
     if (direction === -1) {
       currentDate = moment(date).subtract(1, 'days').format('YYYY-MM-DD')
@@ -40,6 +41,8 @@ class SwitchDate extends Component {
     const format = this.formatCurrentDate(currentDate);
     this.setState({
       ...format
+    }, () => {
+      onChange(format.date)
     })
   }
 
@@ -65,15 +68,5 @@ class SwitchDate extends Component {
     )
   }
 }
-SwitchDate.defaultProps = {
-  info: {
-    shopSn: 'NO.go0001',
-    shopName: '黑龙江',
-    address: '暂无定位',
-    level: 'A',
-    handleClick: () => {
 
-    }
-  }
-}
 export default SwitchDate

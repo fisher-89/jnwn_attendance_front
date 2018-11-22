@@ -15,11 +15,12 @@ import MobileCalendar from './MobileCalendar/index.js'
 import SchedulingInfo from './SchedulingInfo/index.js'
 import AttendenceType from './AttendenceType/index'
 import SwitchDate from './SwitchDate'
+import { Loader, SmallLoader, Spin } from './Loader'
 export {
   Card, Btn, CheckboxBtn,
   CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
   TextInput, ShopLevel, StatusLabel, PersonIcon, PersonAdd,
-  FooterNav,GridNav,PageModal,ShopInfo,MobileCalendar,SchedulingInfo,
+  FooterNav, GridNav, PageModal, ShopInfo, MobileCalendar, SchedulingInfo,
   AttendenceType,
-  SwitchDate
+  SwitchDate, SmallLoader, Loader, Spin
 }
