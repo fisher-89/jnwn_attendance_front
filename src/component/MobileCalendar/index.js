@@ -17,14 +17,12 @@ class MobileCalendar extends Component {
     super(props);
     this.state = {
       currentDate: { month: '08', year: '2018' },
-      nowDate: { year: new Date().getFullYear(), month: new Date().getMonth() + 1 }
     }
   }
 
   componentWillReceiveProps(props) {
     const { selectData, checkedDate } = props;
     if (JSON.stringify(selectData) !== JSON.stringify(this.props.selectData)) {
-      console.log('componentWillReceiveProps')
       const mySwiper = this.calendar.mySwiper;
       const templ = this.calendar.SLIDER_ITEM_CONTAINER;
       this.calendar.refreshData({ ...checkedDate }, (html, onj) => {
@@ -90,39 +88,45 @@ class MobileCalendar extends Component {
 
   setTitle = (item) => {
     const { month, year } = item;
-    const { nowDate } = this.state
-    // currentDate = item.date;
     const mid = monthTransform(month) + "月";
     this.setState({
       currentDate: item,
       mid,
       year
     })
-    const nowDateStr = moment(`${nowDate.year}-${nowDate.month}-01 00:00:00`).unix();
+    const { prev, next } = this.forbiddenPrevNext(item);
+    this.calendar.mySwiper.allowSlideNext = !!next;
+    this.calendar.mySwiper.allowSlidePrev = !!prev;
+  }
+
+  forbiddenPrevNext = (cur) => {
+    const { month, year } = cur;
+    const { range: { max, min } } = this.props;
+    const maxDateStr = max ? moment(`${max}-01 00:00:00`).unix() : '';
+    const minDateStr = min ? moment(`${min}-01 00:00:00`).unix() : '';
     const curDateStr = moment(`${year}-${month}-01 00:00:00`).unix();
-    if (curDateStr >= nowDateStr) {
-      this.calendar.mySwiper.allowSlideNext = false;
-    }
-    else {
-      this.calendar.mySwiper.allowSlideNext = true;
+    const prev = !minDateStr || curDateStr < minDateStr;
+    const next = !maxDateStr || curDateStr < maxDateStr;
+    return {
+      prev, next
     }
   }
+
   render() {
     const { id, className } = this.props;
-    const { year, month } = this.state.currentDate;
-    const { nowDate, mid } = this.state
-    const nowDateStr = moment(`${nowDate.year}-${nowDate.month}-01 00:00:00`).unix();
-    const curDateStr = moment(`${year}-${month}-01 00:00:00`).unix();
+    const { mid } = this.state
+    const { prev, next } = this.forbiddenPrevNext(this.state.currentDate);
     return (
       <div className={className}>
         <CalendarLegend />
         <div className="mui-content">
           <div className="em-journal-title">
             <div className="current-month">
-              <span className="swicth_pre" />
+              <span className="swicth_pre" style={!prev ? { display: 'none' } : null} />
+              <span className="swicth_pre_disabled" style={prev ? { display: 'none' } : null} />
               <span className="mid">{mid}</span>
-              <span className="swicth_next" style={curDateStr >= nowDateStr ? { display: 'none' } : null} />
-              <span className="next_disabled" style={curDateStr < nowDateStr ? { display: 'none' } : null} />
+              <span className="swicth_next" style={!next ? { display: 'none' } : null} />
+              <span className="next_disabled" style={next ? { display: 'none' } : null} />
             </div>
             <div className="year">{this.state.year}</div>
           </div>
@@ -149,7 +153,6 @@ class MobileCalendar extends Component {
   }
 }
 MobileCalendar.defaultProps = {
-  uniqueKey: 'calendar',
   renderDayItem: (value, curr) => {
     let template = '';
     const { isforbid, date, tip, day, isholiday } = value;
@@ -181,6 +184,10 @@ MobileCalendar.defaultProps = {
   },
   onItemClick: () => {
 
+  },
+  range: {
+    min: '',
+    max: moment().format('YYYY-MM')
   }
 }
 export default MobileCalendar;
