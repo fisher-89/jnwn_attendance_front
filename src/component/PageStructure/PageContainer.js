@@ -7,9 +7,9 @@ import './index.less';
 
 class PageContainer extends Component {
   render() {
-    const { children } = this.props;
+    const { children ,className} = this.props;
     return (
-      <div className="page_container">
+      <div className={`page_container ${className}`}>
         {children}
       </div>
     );

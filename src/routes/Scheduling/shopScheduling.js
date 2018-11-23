@@ -5,10 +5,11 @@ import { WhiteSpace, Carousel } from 'antd-mobile'
 import { PageContainer, PageFooter, PageContent, SideBoth } from '../../component/PageStructure'
 import {
   CardTitle, SchedulingInfo, ShopInfo, Btn, MobileCalendar, PageModal, AttendenceType,
-  PersonIcon, SwitchDate, Spin
+  PersonIcon, SwitchDate, Spin, LockIn
 } from '../../component';
 import '../../component/MobileCalendar/css/style_1.less'
 import './index.less'
+import '../index.less'
 import { connect } from 'dva';
 const morCount = 7;
 const nightCount = 8;
@@ -60,6 +61,7 @@ class ShopScheduling extends Component {
     this.state = {
       shopSn,
       alertStatus: false,
+      lockVisible: true,
       checkedDate: '2018-10-01',
       details: {
         '2018-11-01': [
@@ -618,21 +620,22 @@ class ShopScheduling extends Component {
   }
 
   render() {
-    const { alertStatus } = this.state;
+    const { alertStatus, lockVisible } = this.state;
     return (
       <Spin>
-        <PageContainer>
-          <PageModal
-            title='排班详情'
-            alertTip="这是一个测试弹框"
-            alertStatus={alertStatus}
-            content={this.editSchedual()}
-            closeAlert={
-              (visible) => {
-                this.setState({ alertStatus: visible })
-              }
+        <PageModal
+          title='排班详情'
+          alertTip="这是一个测试弹框"
+          alertStatus={alertStatus}
+          content={this.editSchedual()}
+          closeAlert={
+            (visible) => {
+              this.setState({ alertStatus: visible })
             }
-          />
+          }
+        />
+        <LockIn visible={lockVisible} />
+        <PageContainer className={lockVisible ? 'blur' : ''}>
           <PageContent style={{ padding: 0 }}>
             <SideBoth >
               <CardTitle

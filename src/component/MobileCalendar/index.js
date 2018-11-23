@@ -187,7 +187,7 @@ MobileCalendar.defaultProps = {
   },
   range: {
     min: '',
-    max: moment().format('YYYY-MM')
+    max: moment().add(1, 'months').format('YYYY-MM')
   }
 }
 export default MobileCalendar;

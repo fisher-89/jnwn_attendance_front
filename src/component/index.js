@@ -16,11 +16,12 @@ import SchedulingInfo from './SchedulingInfo/index.js'
 import AttendenceType from './AttendenceType/index'
 import SwitchDate from './SwitchDate'
 import { Loader, SmallLoader, Spin } from './Loader'
+import LockIn from './LockIn/index'
 export {
   Card, Btn, CheckboxBtn,
   CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
   TextInput, ShopLevel, StatusLabel, PersonIcon, PersonAdd,
   FooterNav, GridNav, PageModal, ShopInfo, MobileCalendar, SchedulingInfo,
   AttendenceType,
-  SwitchDate, SmallLoader, Loader, Spin
+  SwitchDate, SmallLoader, Loader, Spin, LockIn
 }
