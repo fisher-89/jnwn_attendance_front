@@ -56,13 +56,13 @@ class PersonScheduling extends PureComponent {
           </SideBoth>
           <Carousel infinite>
             <div className="carousel_item">
-              <ShopInfo style={{ width: '351px', margin: '0 auto', height: '116px' }} />
+              <ShopInfo style={{ width: '351px', margin: '0 auto', height: '3.09333333rem' }} />
             </div>
             <div className="carousel_item">
-              <ShopInfo style={{ width: '351px', margin: '0 auto', height: '116px' }} />
+              <ShopInfo style={{ width: '351px', margin: '0 auto', height: '3.09333333rem' }} />
             </div>
             <div className="carousel_item">
-              <ShopInfo style={{ width: '351px', margin: '0 auto', height: '116px' }} />
+              <ShopInfo style={{ width: '351px', margin: '0 auto', height: '3.09333333rem' }} />
             </div>
           </Carousel>
           <WhiteSpace size="lg" />

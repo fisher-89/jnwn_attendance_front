@@ -1,3 +1,122 @@
 .blur {
   filter: blur(6px);
 }
+
+.test {
+  width: 300px;
+  height: 300px;
+  border: 1px solid red;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.specil {
+  width: 60px;
+  height: 60px;
+  background: yellow;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.normal {
+  width: 100px;
+  height: 100px;
+  background: blue;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.up {
+  animation: upmove 0.4s forwards;
+}
+
+.down {
+  animation: downmove 0.4s forwards;
+}
+
+.up:active {}
+
+.up,
+.down {
+  // width: 100px;
+  // height: 100px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+@keyframes downmove {
+  0% {
+    width: 100px;
+    height: 100px;
+    left: 100px;
+    z-index: 2;
+  }
+  50% {
+    left: 150px;
+    z-index: 1;
+  }
+  100% {
+    width: 80px;
+    height: 80px;
+    left: 70px;
+    z-index: 1;
+  }
+}
+
+@keyframes upmove {
+  0% {
+    width: 80px;
+    height: 80px;
+    left: 70px;
+    z-index: 1;
+  }
+  50% {
+    left: 60px;
+    z-index: 2;
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+    left: 100px;
+    z-index: 2;
+  }
+}
+
+@keyframes rightdownmove {
+  0% {
+    width: 100px;
+    left: 100px;
+    height: 100px;
+    z-index: 2;
+  }
+  50% {
+    left: 180px;
+    z-index: 1;
+  }
+  100% {
+    width: 60px;
+    height: 60px;
+    left: 150px;
+    z-index: 1;
+  }
+}
+
+@keyframes rightupmove {
+  0% {
+    width: 60px;
+    height: 60px;
+    left: 150px;
+    z-index: 1;
+  }
+  50% {
+    left: 180px;
+    z-index: 2;
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+    left: 100px;
+    z-index: 2;
+  }
+}

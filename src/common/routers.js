@@ -40,9 +40,9 @@ const menuGlobal = [
     pid: '0',
     name: '测试日历',
     icon: 'user',
-    path: '/testcalendar',
+    path: '/test',
     models: [], //models可多个
-    component: () => import('../routes/TestCalendar/index.js'),
+    component: () => import('../routes/test.js'),
   },
 ];
 export default menuGlobal
