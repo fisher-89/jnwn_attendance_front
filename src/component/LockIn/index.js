@@ -1,10 +1,13 @@
 
 import React, { Component } from 'react';
 import { is, fromJS } from 'immutable';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+// import rasterizeHTML from 'rasterizehtml';
+import html2canvas from 'html2canvas';
+
+
 import './index.less'
 let defaultState = {
-  visible: true,
+  visible: false,
   alertTip: "提示",
   title: '弹框',
   closeAlert: function () { },
@@ -16,11 +19,41 @@ class LockIn extends Component {
     ...defaultState
   };
 
+  componentDidMount() {
+    // const page = document.querySelector('.page_container');
+    // domtoimage.toPng(page)
+    //   .then((dataUrl) => {
+    //     var img = new Image();
+    //     img.src = dataUrl;
+    //     this.setState({
+    //       src: dataUrl
+    //     })
+    //     console.log(dataUrl)
+    //     // document.body.appendChild(img);
+    //   })
+    //   .catch(function (error) {
+    //     console.error('oops, something went wrong!', error);
+    //   });
+  }
+
   componentWillReceiveProps(newProps) {
+    console.log('componentWillReceiveProps')
     if (newProps.visible !== this.props.visible) {
       this.setState({
-        visible: newProps.visible
+        visible: newProps.visible,
       })
+      // html2canvas(document.querySelector('.page_container')).then((canvas) => {
+      //   var context = canvas.getContext('2d');
+      //   var Img = new Image()
+      //   context.drawImage(Img, 0, 0, canvas.width, canvas.height);
+      //   const src = canvas.toDataURL();
+      //   console.log(src)
+      //   this.setState({
+      //     src
+      //   })
+      //   // var img = Canvas2Image.convertToImage(canvas, canvas.width, canvas.height);
+      //   // document.getElementById('blur').appendChild(img);
+      // });
     }
   }
 
@@ -63,11 +96,13 @@ class LockIn extends Component {
   }
 
   render() {
+    const { visible, src } = this.state;
+    console.log('visible', visible)
     return (
-      <div className="lockin">
-        <div className="lockin-inner">
-          打卡
-          </div>
+      <div className="lockin" style={!visible ? { display: 'none' } : null}>
+        <div className="blur" id="blur">
+          <img src={src} alt="cut" />
+        </div>
       </div>
     );
   }

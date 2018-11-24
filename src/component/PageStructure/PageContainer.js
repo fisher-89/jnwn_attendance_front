@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'dva';
 
 import './index.less';
-
-@connect()
 
 class PageContainer extends Component {
   render() {

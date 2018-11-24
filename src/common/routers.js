@@ -14,7 +14,7 @@ const menuGlobal = [
     name: 'shopscheduling',
     icon: 'user',
     path: '/shop_scheduling/:shopSn',
-    models: [], //models可多个
+    models: ['schedule'], //models可多个
     component: () => import('../routes/Scheduling/shopScheduling.js'),
   },
   {
@@ -38,11 +38,11 @@ const menuGlobal = [
   {
     id: 'test',
     pid: '0',
-    name: '测试日历',
+    name: 'ceshi',
     icon: 'user',
     path: '/test',
     models: [], //models可多个
-    component: () => import('../routes/test.js'),
+    component: () => import('../routes/animation.js'),
   },
 ];
 export default menuGlobal

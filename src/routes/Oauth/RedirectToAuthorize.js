@@ -10,7 +10,7 @@ export default class RedirectToAuthorize extends Component {
 
   render() {
     return (
-      <h1 style={{ textAlign: 'center' }}>跳转中。。。</h1>
+      <div style={{ textAlign: 'center' }}>跳转中。。。</div>
     );
   }
 }

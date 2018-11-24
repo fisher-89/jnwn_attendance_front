@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'dva';
 import { Toast, InputItem } from 'antd-mobile';
 import './index.less';
 
@@ -106,4 +105,4 @@ TextInput.defaultProps = {
   range: { min: 0, max: 20 }
 };
 
-export default connect()(TextInput);
+export default TextInput;

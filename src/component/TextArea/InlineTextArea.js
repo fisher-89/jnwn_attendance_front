@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import { TextareaItem } from 'antd-mobile'
 import './index.less'
-import { connect } from 'dva';
-@connect()
 class BlockTextArea extends Component {
   constructor(props) {
     super(props);

@@ -17,7 +17,7 @@ class RefreshAccessToken extends Component {
 
   render() {
     return (
-      <h1 style={{ textAlign: 'center' }}>登录中。。。</h1>
+      <div style={{ textAlign: 'center' }}>登录中。。。</div>
     );
   }
 }

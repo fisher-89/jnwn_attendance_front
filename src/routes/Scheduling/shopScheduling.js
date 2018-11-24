@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import moment from 'moment'
-
 import { WhiteSpace, Carousel } from 'antd-mobile'
 import { PageContainer, PageFooter, PageContent, SideBoth } from '../../component/PageStructure'
 import {
@@ -61,7 +60,7 @@ class ShopScheduling extends Component {
     this.state = {
       shopSn,
       alertStatus: false,
-      lockVisible: true,
+      lockVisible: false,
       checkedDate: '2018-10-01',
       details: {
         '2018-11-01': [
@@ -566,18 +565,21 @@ class ShopScheduling extends Component {
   submit = () => {
     const { details, shopSn } = this.state;
     const { dispatch } = this.props;
-
-    dispatch({
-      type: 'schedule/editSchedule',
-      payload: {
-        staff_sn: shopSn,
-        params: {
-          "ym":
-            details
-        }
-      }
-
+    console.log('submit')
+    this.setState({
+      lockVisible: true
     })
+    // dispatch({
+    //   type: 'schedule/editSchedule',
+    //   payload: {
+    //     staff_sn: shopSn,
+    //     data: {
+    //       "ym":
+    //         details
+    //     }
+    //   }
+
+    // })
   }
 
   renderWork = (count) => {
@@ -635,7 +637,7 @@ class ShopScheduling extends Component {
           }
         />
         <LockIn visible={lockVisible} />
-        <PageContainer className={lockVisible ? 'blur' : ''}>
+        <PageContainer className="page">
           <PageContent style={{ padding: 0 }}>
             <SideBoth >
               <CardTitle

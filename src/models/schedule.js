@@ -8,7 +8,7 @@ export default {
   effects: {
 
     * editSchedule({ payload }, { call }) {
-      const response = yield call(schedule.editSchedule, payload.data);
+      const response = yield call(schedule.editSchedule, payload);
       if (response && !response.error) {
         payload.cb(response.data);
       } else {

@@ -2,8 +2,7 @@
 import React, { Component } from 'react';
 import { TextareaItem } from 'antd-mobile'
 import './index.less'
-import { connect } from 'dva';
-@connect()
+
 class BlockTextArea extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +31,7 @@ class BlockTextArea extends Component {
   }
 
   render() {
-    const { title, readonly, placeholder,clear } = this.props;
+    const { title, readonly, placeholder, clear } = this.props;
     return (
       <div className="text_area">
         <div className="title">{title}</div>
@@ -51,7 +50,7 @@ class BlockTextArea extends Component {
 BlockTextArea.defaultProps = {
   readonly: false,
   placeholder: '请输入...',
-  clear:true
+  clear: true
 }
 
 export default BlockTextArea

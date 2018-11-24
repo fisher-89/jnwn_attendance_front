@@ -4,8 +4,6 @@ import { ImagePicker } from 'antd-mobile'
 import ImageViewer from 'react-wx-images-viewer';
 import { dealThumbImg, rebackImg, reAgainImg } from '../../utils/util'
 import './index.less'
-import { connect } from 'dva';
-@connect()
 class FileUpLoad extends Component {
   constructor(props) {
     super(props);
