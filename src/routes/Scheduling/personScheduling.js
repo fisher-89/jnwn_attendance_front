@@ -1,7 +1,10 @@
 
 import React, { PureComponent } from 'react';
 import { WhiteSpace, Carousel } from 'antd-mobile'
+import moment from 'moment'
 import { PageContainer, PageFooter, PageContent, SideBoth } from '../../component/PageStructure'
+import Calendar from '../../component/ReactCalendar/Calendar';
+
 import {
   CardTitle, FooterNav, PageModal, ShopInfo, Btn, MobileCalendar
 } from '../../component';
@@ -35,7 +38,12 @@ class PersonScheduling extends PureComponent {
       [key]: value
     })
   }
-
+  onSelectDate = (date)=>{
+    console.log('onSelectDate:',date)
+  }
+  onChange = (date)=>{
+    console.log('onChange:',date);
+  }
   render() {
     // return (
     //   <MobileCalendar
@@ -67,11 +75,30 @@ class PersonScheduling extends PureComponent {
           </Carousel>
           <WhiteSpace size="lg" />
           <WhiteSpace size="lg" />
-          <SideBoth>
-            <MobileCalendar
-              className="person_scheduling"
-              id="person_scheduling"
-              type="0"
+          <SideBoth>      
+            <Calendar 
+              onSelectDate={this.onSelectDate}
+              onChange={this.onChange}
+              decorate={
+                [
+                  {
+                  value:'2019-02-28',
+                  type:'night',
+                  },
+                  {
+                    value:'2019-02-22',
+                    type:'morning',
+                  },
+                  {
+                    value:'2019-02-18',
+                    type:'rest',
+                  },
+                  {
+                    value:'2019-02-01',
+                    type:'all',
+                  }
+                ]
+              }
             />
             <div className="attendence">
               <div>

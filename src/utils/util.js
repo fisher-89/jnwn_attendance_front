@@ -97,3 +97,11 @@ export function findAppointParent(el, classname) {
   }
   return parentNode
 }
+
+const schedulingStyle=[
+  {type:'morning',bg:'/icon/morning',name:'早班',color:'#ec6d51',range:''},
+  {type:"night",bg:'/icon/night',name:'晚班',color:'rgb(62,98,173)',range:''},
+  {type:'all',bg:'/icon/all_shift',name:'通班',color:'rgb(27,182,182)',range:''},
+  {type:'rest',bg:'/icon/rest',name:'排休',color:'rgb(187,185,186)',range:''},
+
+]

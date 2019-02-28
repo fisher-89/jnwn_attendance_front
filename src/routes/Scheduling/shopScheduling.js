@@ -6,6 +6,8 @@ import {
   CardTitle, SchedulingInfo, ShopInfo, Btn, MobileCalendar, PageModal, AttendenceType,
   PersonIcon, SwitchDate, Spin, LockIn
 } from '../../component';
+import Calendar from '../../component/ReactCalendar/Calendar';
+
 import '../../component/MobileCalendar/css/style_1.less'
 import './index.less'
 import '../index.less'
@@ -674,6 +676,31 @@ class ShopScheduling extends Component {
                 selectData={this.state.selectData}
                 checkedDate={this.state.checkedDateInfo}
               />
+              <Calendar 
+              onSelectDate={this.onSelectDate}
+              onChange={this.onChange}
+              renderDays={this.renderDays}
+              decorate={
+                [
+                  {
+                  value:'2019-02-28',
+                  type:'night',
+                  },
+                  {
+                    value:'2019-02-22',
+                    type:'morning',
+                  },
+                  {
+                    value:'2019-02-18',
+                    type:'rest',
+                  },
+                  {
+                    value:'2019-02-01',
+                    type:'all',
+                  }
+                ]
+              }
+            />
               <WhiteSpace size="lg" />
               <SchedulingInfo />
             </SideBoth>

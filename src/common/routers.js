@@ -76,5 +76,15 @@ export const aouthPath = [
     models: ['oauth'],
     component: () =>
       import('../routes/Oauth/RedirectToAuthorize'),
+  },
+  {
+    id: 'test',
+    pid: 'test',
+    name: 'test',
+    icon: 'user',
+    path: '/test',
+    models: ['oauth'],
+    component: () =>
+      import('../routes/test'),
   }
 ]

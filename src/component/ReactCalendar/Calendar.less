@@ -1,0 +1,246 @@
+@import '../../utils/var.less';
+
+.react-calendar {
+	font-size: .font-dpr(14px);
+  background: #fff;
+  border-radius: @card-radius;
+}
+
+.react-calendar__header {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	// padding: 25px 0;
+}
+
+.react-calendar__control {
+	margin: 0 auto;
+	width: 240px;
+	padding: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: distribute;
+	justify-content: space-around;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	color: #1e2329;
+}
+
+.react-calendar__day--hide {
+	opacity: 0;
+}
+
+.react-calendar__arrow {
+	width: 44px;
+	text-align: center;
+}
+
+.react-calendar__arrow--right:after {
+	display: inline-block;
+	content: '';
+	width: 0;
+	height: 0;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	border-left: 5px solid #c7d2d0;
+}
+
+.react-calendar__arrow--left:after {
+	display: inline-block;
+	content: '';
+	width: 0;
+	height: 0;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	border-right: 5px solid #c7d2d0;
+}
+
+.react-calendar__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: bold;
+}
+
+.react-calendar__month {
+  margin-left: 10px;
+}
+
+/* .react-calendar__main {
+	display: block;
+  overflow: hidden;
+} */
+
+.react-calendar__weekdays {
+  display: flex;
+  padding: 6px 7px 9px 8px;
+  justify-content: space-around;
+  .fontStyle(@text-assist-color, 14px);
+  span {
+    height: 22px;
+    line-height: 22px;
+    width: 48px;
+    text-align: center;
+  }
+	// margin: 0;
+	// display: flex;
+	// flex-wrap: wrap;
+	// justify-content: space-around;
+  // font-size: 11px;
+  // padding:6px 0 9px 0;
+	// color: #1e2329;
+}
+
+.react-calendar__weekday {
+	flex: 1 0 14.2%;
+	text-align: center;
+  z-index: 10;
+  background: #fff;
+}
+
+.react-calendar__days {
+  padding: 0 7px @card-radius @card-radius;
+	border-radius: @card-radius;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.react-calendar__day {
+  color:rgb(53,48,49);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .font-dpr(14px);
+}
+
+.react-calendar__day span {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.night {
+      background: url('/icons/night.png') no-repeat center 28px;
+      background-size: 4px;
+    }
+    &.morning {
+      background: url('/icons/morning.png') no-repeat center 28px;
+      background-size: 4px;
+    }
+    &.all {
+      background: url('/icons/all_shift.png') no-repeat center 28px;
+      background-size: 4px;
+    }
+    &.rest {
+      background: url('/icons/rest.png') no-repeat center 28px;
+      background-size: 4px;
+    }
+}
+
+.react-calendar__day--today span {
+	border-radius: 50%;
+  background: #f5a781;
+  border:1px solid @theme-color;
+	// color: #fff !important;
+}
+
+.react-calendar__day--selected span {
+	// border-radius: 50%;
+	// background: #eb4f04;
+	// color: #fff !important;
+}
+.react-calendar__day--prevtoday {
+  color: rgb(187,185,186);
+}
+.react-calendar__day--prevmonth ,
+.react-calendar__day--nextmonth  {
+	color: #eee;
+}
+
+// .react-calendar__day--decorate {
+// 	position: relative;
+// }
+
+// .react-calendar__day--decorate:after {
+// 	content: '';
+// 	position: absolute;
+// 	bottom: 2px;
+// 	left: 0;
+// 	right: 0;
+// 	margin: auto;
+// 	width: 4px;
+// 	height: 4px;
+// 	border-radius: 50%;
+// 	background: #eb4f04;
+// }
+
+.react-calendar__day--selected.react-calendar__day--decorate:after {
+  background: #fff;
+}
+
+.current-month {
+	margin:0 auto;
+	width:154px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .fontStyle(@text-main-color, 16px);
+  span.swicth_pre {
+		width: 44px;
+		height: 44px;
+		background: url(/icons/left.png) no-repeat center;
+		background-size: 12px 16px;
+	}
+	span.swicth_pre_disable {
+		width: 44px;
+		height: 44px;
+		background: url(/icons/left_disable.png) no-repeat center;
+		background-size: 12px 16px;
+  }
+  span.swicth_next {
+		width: 44px;
+		height: 44px;
+		background: url(/icons/right.png) no-repeat center;
+		background-size: 12px 16px;
+	}
+	span.next_disabled {
+		width: 44px;
+		height: 44px;
+		background: url(/icons/right_disable.png) no-repeat center;
+		background-size: 12px 16px;
+  }
+}
+
+
+.em-journal-title {
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+  width: 100%;
+	// padding: 0 113px;
+	border-bottom: 1px solid @text-assist-sub-color;
+  .year {
+    position: absolute;
+    left: 15px;
+    top: 24px;
+    margin-top: -12px;
+    height: 24px;
+    line-height: 24px;
+    .fontStyle(@text-main-color, 14px)
+  }
+}
+
+.legend {
+  display: flex;
+  justify-content: space-around;
+  height: 20px;
+  line-height: 20px;
+  margin-bottom: @vertical-margin9;
+  .font-dpr(12px);
+}
