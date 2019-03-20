@@ -1,0 +1,45 @@
+
+@import '../../utils/var.less';
+#message{
+  animation-name: MessageMoveOut;
+  animation-duration: 0.3s;
+  top:-36px;
+  height: 0;
+  position:relative;
+  animation:mymove 0.4s forwards;
+  -moz-animation:mymove 0.4s infinite; /* Firefox */
+  -webkit-animation:mymove 0.4s forwards; /* Safari and Chrome */
+  -o-animation:mymove 0.4s infinite; /* Opera */
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.default_icon{
+  width:16px;
+  height: 16px;
+  background: url('/icons/notice.svg') no-repeat center center;
+  background-size: 16px 16px;
+}
+@keyframes mymove {
+  from {height: 0;}
+  to {height: 36px;top:15px;}
+}
+
+.msg_container{
+  width: 351px;
+  margin:0 auto;
+  background: rgb(255,240,216);
+  color:@hint-clor;
+  border-radius: 18px;
+  .content {
+    .font-dpr(14px);
+    height:100%;
+    margin:0;
+  }
+  :global{
+    .am-notice-bar{
+      color:rgb(245,166,35);
+      background: rgb(255,240,216);
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Message from '../component/Message'
 // import {
 //   Toast,
 // } from 'antd-mobile';
@@ -81,6 +82,7 @@ export default function request(uri, params) {
   }
   return fetch(urlParam, newOptions)
     .then((response) => {
+      console.log(response)
       if (newOptions.method === 'DELETE' && response.status === 204) {
         const obj = { status: '204', message: '删除成功' };
         return { ...obj };

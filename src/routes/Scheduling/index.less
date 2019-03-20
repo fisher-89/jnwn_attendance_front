@@ -172,3 +172,81 @@
     width: 150px;
   }
 }
+
+.calendar__day {
+  width: 49px;
+  height: 72px;
+  border: 1px solid transparent;
+  margin-bottom: -1px;
+  margin-right: -1px;
+  .day {
+    background: none;
+    text-align: center;
+    .fontStyle(@text-main-color, 24px);
+  }
+  &.calendar__day--today{
+    border:1px solid @theme-color;
+  }
+  &.calendar__day--nextmonth .day,
+  &.calendar__day--prevmonth .day{
+    color: #f3f3f2;
+  }
+  &.edit1 {
+    border: 1px dotted @text-assist-sub-color;
+    background: url('/icons/edit.png') no-repeat right top;
+    background-size: 10px;
+    &.em-calendar-active {
+      // background: rgba(253, 208, 0, 0.1);
+    }
+  }
+  &.isforbid0 {
+    background: none;
+    border-color: transparent;
+    .day {
+      .fontStyle(@filter-bg-color,
+      24px)
+    }
+    .morwork,
+    .nightwork,
+    .allwork,
+    .restday {
+      span {
+        background: none;
+      }
+    }
+  }
+  .morwork,
+.nightwork,
+.restday,
+.allwork {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 38px;
+  margin: 3px auto 0;
+  height: 3px;
+  span {
+    width: 3px;
+    height: 3px;
+    margin-right: 2px;
+    &:nth-child(8n) {
+      margin-right: 0;
+    }
+  }
+}
+.morwork .work {
+  background: url(/icons/morning.png) no-repeat center;
+  background-size: 3px;
+}
+.nightwork .work {
+  background: url(/icons/night.png) no-repeat center;
+  background-size: 3px;
+}
+.allwork .work {
+  background: url(/icons/all_shift.png) no-repeat center;
+  background-size: 3px;
+}
+.restday .work {
+  background: url(/icons/rest.png) no-repeat center;
+  background-size: 3px;
+}
+}

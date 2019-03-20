@@ -1,4 +1,7 @@
 @import '../../utils/var.less';
+.button{
+  background: #fff;
+}
 .xs_btn {
   .btn-xs();
 }
@@ -28,6 +31,12 @@
     .btn-fill(#fff, @active-warning-color);
   }
 }
+.btn_fill_normal_style {
+  .btn-fill(#fff, @interspersed-color);
+  &:active {
+    .btn-fill(#fff, @interspersed-color);
+  }
+}
 
 .btn_fill_default_style {
   .btn-fill(#fff, @text-assist-color );
@@ -49,7 +58,12 @@
     .btn-stroke( @active-warning-color);
   }
 }
-
+.btn_stroke_normal_style {
+  .btn-stroke(@interspersed-color);
+  &:active {
+    .btn-stroke( @interspersed-color);
+  }
+}
 .btn_stroke_default_style {
   .btn-stroke( @text-assist-color );
   &:active {

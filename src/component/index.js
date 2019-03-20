@@ -17,11 +17,13 @@ import AttendenceType from './AttendenceType/index'
 import SwitchDate from './SwitchDate'
 import { Loader, SmallLoader, Spin } from './Loader'
 import LockIn from './LockIn/index'
+import TimeLine from './TimeLine'
+import Message from './Message'
 export {
   Card, Btn, CheckboxBtn,
   CardTitle, FileUpLoad, BlockTextArea, InlineTextArea,
   TextInput, ShopLevel, StatusLabel, PersonIcon, PersonAdd,
   FooterNav, GridNav, PageModal, ShopInfo, MobileCalendar, SchedulingInfo,
   AttendenceType,
-  SwitchDate, SmallLoader, Loader, Spin, LockIn
+  SwitchDate, SmallLoader, Loader, Spin, LockIn,TimeLine
 }

@@ -1,0 +1,31 @@
+@import '../../utils/var.less';
+
+.timeline_item{
+  position: relative;
+  &:last-child{
+    .item_tail{
+      display: none;
+    }
+  }
+}
+
+.item_dot{
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border:2px solid @interspersed-color;
+  background: #fff;
+}
+.item_tail{
+  position: absolute;
+  width: 2px;
+  top:0;
+  left:4.5px;
+  bottom:0;
+  border-left: 1px solid @text-assist-sub-color
+}
+.content{
+  margin-left: 18px;
+  
+}

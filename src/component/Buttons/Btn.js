@@ -17,6 +17,7 @@ class Buttons extends Component {
     switch (type) {
       case 'primary': return 'primary_style';
       case 'warning': return 'warning_style';
+      case 'normal': return 'normal_style';
       case 'default': return 'default_style';
       default: return 'primary'
     }
@@ -27,19 +28,19 @@ class Buttons extends Component {
   }
 
   render() {
-    const { children, size, fill, style, type, handleClick } = this.props;
+    const { children, size, fill, style, type, handleClick,block } = this.props;
     const sizeClass = this.switchSizeClass(size);
     const fillStyle = this.witchFillClass(fill);
     const typeClass = this.switchTypeClass(type);
     const btnClass = classNames("button", sizeClass, `${fillStyle}_${typeClass}`);
     return (
-      <div
+      <span
         className={btnClass}
-        style={style}
+        style={block?{'display':'block',...style}:{}}
         onClick={handleClick}
       >
         {children}
-      </div>
+      </span>
     );
   }
 }

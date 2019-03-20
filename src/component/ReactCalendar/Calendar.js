@@ -4,9 +4,7 @@ import { Carousel } from 'antd-mobile'
 import classnames from 'classnames'
 import moment from 'moment'
 
-
 import CalendarLegend from './legend.js'
-
 
 import {
   getWeekNumber,
@@ -16,7 +14,7 @@ import {
   getDaysCountOfMonth
 } from './util/utils'
 import translateUtil from './util/translate'
-import {legalHolidays} from './util/datas' 
+import { legalHolidays } from './util/datas'
 import './Calendar.less'
 
 class Calendar extends Component {
@@ -54,7 +52,7 @@ class Calendar extends Component {
     }
     return true
   }
- 
+
   getFormatedMonth(current, number = 0) {
     const dateValue = new Date(
       current.getFullYear(),
@@ -145,7 +143,7 @@ class Calendar extends Component {
     }
     return scrollableData.indexOf(formatedValue)
   }
- 
+
   isToday(day) {
     const now = new Date()
     return !!(
@@ -154,17 +152,17 @@ class Calendar extends Component {
       day.getDate() === now.getDate()
     )
   }
-  isBefore(day){
+  isBefore(day) {
     const { startDateAt } = this.state
     const start = new Date(startDateAt)
     const now = new Date()
     return !!(
       (day.getFullYear() === start.getFullYear() &&
-      day.getMonth() === start.getMonth() && day.getMonth()<now.getMonth())
-      || 
+        day.getMonth() === start.getMonth() &&
+        day.getMonth() < now.getMonth()) ||
       (day.getFullYear() === now.getFullYear() &&
-      day.getMonth() === now.getMonth()&&
-      day.getDate() < now.getDate())
+        day.getMonth() === now.getMonth() &&
+        day.getDate() < now.getDate())
     )
   }
   isSelected(day) {
@@ -203,26 +201,23 @@ class Calendar extends Component {
     )
   }
 
- 
-
- 
   isDecorated(day) {
     const dateFormat = `${day.getFullYear()}-${`0${day.getMonth() + 1}`.slice(
       -2
-    )}-${`0${day.getDate()}`.slice(-2)}`;
-    return this.props.decorate.find(item=>item.value===dateFormat)||{};
+    )}-${`0${day.getDate()}`.slice(-2)}`
+    return this.props.decorate.find(item => item.value === dateFormat) || {}
     // return !!this.props.decorate.find(item=>item.value)[dateFormat]
   }
 
-  isHoliday(day){
-    const date=moment(day).format('YYYY-MM-DD')
+  isHoliday(day) {
+    const date = moment(day).format('YYYY-MM-DD')
     return legalHolidays.indexOf(date) > -1 ? 1 : 0
   }
-  onSelectDay = e => {
-    const value = new Date(e.target.dataset.value)
+  onSelectDay = day => {
+    const value = new Date(day)
     const { startDateAt } = this.state
     this.props.onSelectDate(value)
-    const shouldTranslate = startDateAt.getMonth() !== value.getMonth()
+    const shouldTranslate = startDateAt.getMonth() !== value.getMonth();
     if (shouldTranslate) {
       this.updateCalendarDate(value)
     }
@@ -370,26 +365,25 @@ class Calendar extends Component {
     console.log('afterChange', current)
   }
 
-  forbiddenPrevNext = (curDate) => {
-    const { range: { max, min } } = this.props;
-    const maxDateStr = max ? moment(`${max}-01 00:00:00`).unix() : '';
-    const minDateStr = min ? moment(`${min}-01 00:00:00`).unix() : '';
-    const curDateStr = moment(curDate).unix();
-    const prev = !minDateStr || curDateStr < minDateStr;
-    const next = !maxDateStr || curDateStr < maxDateStr;
+  forbiddenPrevNext = curDate => {
+    const {
+      range: { max, min }
+    } = this.props
+    const maxDateStr = max ? moment(`${max}-01 00:00:00`).unix() : ''
+    const minDateStr = min ? moment(`${min}-01 00:00:00`).unix() : ''
+    const curDateStr = moment(curDate).unix()
+    const prev = !minDateStr || curDateStr < minDateStr
+    const next = !maxDateStr || curDateStr < maxDateStr
     return {
-      prev, next
+      prev,
+      next
     }
   }
   renderHeader() {
-    const {
-      i18n,
-      monthFormat,
-      yearFormat,
-    } = this.props
+    const { i18n, monthFormat, yearFormat } = this.props
     const month = getMonthLocale(this.state.startDateAt, i18n, monthFormat)
-    const year = getYearLocale(this.state.startDateAt, i18n, yearFormat);
-    const { prev, next } = this.forbiddenPrevNext(this.state.startDateAt);
+    const year = getYearLocale(this.state.startDateAt, i18n, yearFormat)
+    const { prev, next } = this.forbiddenPrevNext(this.state.startDateAt)
     return (
       <div className="em-journal-title">
         <div className="current-month">
@@ -455,30 +449,40 @@ class Calendar extends Component {
   }
   //默认得渲染方式
   renderDays(startedDateAt) {
+    const { renderDay } = this.props
     const days = this.getDays(startedDateAt)
     const daysElm = days.map((day, i) => {
-      const {type}=this.isDecorated(day)||{};
-      let className = classnames('react-calendar__day', {
-        'react-calendar__day--today': this.isToday(day),
-        'react-calendar__day--prevtoday': this.isBefore(day),
-        'react-calendar__day--selected': this.isSelected(day),
-        'react-calendar__day--nextmonth': this.isNextMonth(day),
-        'react-calendar__day--prevmonth': this.isPrevMonth(day),
-        'react-calendar__day--currentmonth': this.isCurrentMonth(day),
-        // 'react-calendar__day--decorate': this.isDecorated(day)
-      })
-      return (
-        <div
-          key={i}
-          data-value={day}
-          className={`${className}`}
-          onClick={this.onSelectDay}
-        >
-          <span data-value={day} className={type||''}>
-            {this.isHoliday(day)?'节':day.getDate()}
-          </span>
-        </div>
-      )
+      if (renderDay) {
+       return <div key={i} 
+       data-value={day}
+       onClick={()=>this.onSelectDay(day)}
+       >
+         {renderDay(day,this.state.startDateAt)}
+       </div>
+      } else {
+        const { type } = this.isDecorated(day) || {}
+        let className = classnames('react-calendar__day', {
+          'react-calendar__day--today': this.isToday(day),
+          'react-calendar__day--prevtoday': this.isBefore(day),
+          'react-calendar__day--selected': this.isSelected(day),
+          'react-calendar__day--nextmonth': this.isNextMonth(day),
+          'react-calendar__day--prevmonth': this.isPrevMonth(day),
+          'react-calendar__day--currentmonth': this.isCurrentMonth(day)
+          // 'react-calendar__day--decorate': this.isDecorated(day)
+        })
+        return (
+          <div
+            key={i}
+            data-value={day}
+            className={`${className}`}
+            onClick={()=>this.onSelectDay(day)}
+          >
+            <span data-value={day} className={type || ''}>
+              {this.isHoliday(day) ? '节' : day.getDate()}
+            </span>
+          </div>
+        )
+      }
     })
     return daysElm
   }
@@ -486,7 +490,7 @@ class Calendar extends Component {
     const { className } = this.props
     const wrapClass = classnames('react-calendar', className)
     const daysWrapClass = classnames('react-calendar__scroll-wrapper')
-  
+
     return (
       <div>
         <CalendarLegend />
@@ -511,7 +515,6 @@ class Calendar extends Component {
               >
                 {this.renderScrollableWrap()}
               </Carousel>
-             
             </div>
           </div>
         </div>
@@ -531,7 +534,7 @@ Calendar.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date)
   ]),
-  decorate: PropTypes.object,
+  decorate: PropTypes.array,
   className: PropTypes.string,
   i18n: PropTypes.string,
   weekdayFormat: PropTypes.string,
@@ -543,9 +546,9 @@ Calendar.propTypes = {
 }
 
 Calendar.defaultProps = {
-  selectedDate:new Date(),
+  selectedDate: new Date(),
   startDateAt: new Date(),
-  decorate: {},
+  decorate: [],
   onSelectDate: value => {
     console.log(value)
   },
@@ -557,7 +560,9 @@ Calendar.defaultProps = {
   onChange: value => {},
   range: {
     min: '',
-    max: moment().add(1, 'months').format('YYYY-MM')
+    max: moment()
+      .add(1, 'months')
+      .format('YYYY-MM')
   }
 }
 

@@ -98,10 +98,56 @@ export function findAppointParent(el, classname) {
   return parentNode
 }
 
-const schedulingStyle=[
+export const schedulingStyle=[
   {type:'morning',bg:'/icon/morning',name:'早班',color:'#ec6d51',range:''},
   {type:"night",bg:'/icon/night',name:'晚班',color:'rgb(62,98,173)',range:''},
   {type:'all',bg:'/icon/all_shift',name:'通班',color:'rgb(27,182,182)',range:''},
   {type:'rest',bg:'/icon/rest',name:'排休',color:'rgb(187,185,186)',range:''},
 
 ]
+ 
+
+export function isToday(day) {
+  const now = new Date()
+  return !!(
+    day.getFullYear() === now.getFullYear() &&
+    day.getMonth() === now.getMonth() &&
+    day.getDate() === now.getDate()
+  )
+}
+
+export function isBeforeAndSameMonth(day,startDateAt) {
+  const start = new Date(startDateAt)
+  const now = new Date()
+  return !!(
+    (day.getFullYear() === start.getFullYear() &&
+      day.getMonth() === start.getMonth() &&
+      day.getMonth() < now.getMonth()) ||
+    (day.getFullYear() === now.getFullYear() &&
+      day.getMonth() === now.getMonth() &&
+      day.getDate() < now.getDate())
+  )
+}
+export function isPrevMonth(day,startDateAt) {
+  const start = new Date(startDateAt)
+  return (
+    (day.getFullYear() === start.getFullYear() &&
+      day.getMonth() < start.getMonth()) ||
+    day.getFullYear() < start.getFullYear()
+  )
+}
+export function isNextMonth(day,startDateAt) {
+  const start = new Date(startDateAt)
+  return (
+    (day.getFullYear() === start.getFullYear() &&
+      day.getMonth() > start.getMonth()) ||
+    day.getFullYear() > start.getFullYear()
+  )
+}
+export function  isCurrentMonth(day,startDateAt) {
+  const start = new Date(startDateAt)
+  return (
+    day.getMonth() === start.getMonth() &&
+    day.getFullYear() === start.getFullYear()
+  )
+}

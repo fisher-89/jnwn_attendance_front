@@ -33,6 +33,7 @@ class Authority extends Component {
         import('../Error/404'),
     });
     return (
+      <App>
       <Switch>
         <Route
           exact
@@ -67,6 +68,7 @@ class Authority extends Component {
 
         <Route component={error} />
       </Switch>
+      </App>
     );
   }
 }
